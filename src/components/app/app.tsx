@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Header from "../header";
 import ApiService from "../../services/api-service";
 
-import { AboutPage, SignUpPage, LoginPage, HomePage } from "../pages";
+import { AboutPage, SignUpPage, LoginPage, HomePage, NotFoundPage } from "../pages";
 
 import "./app.css";
 
@@ -23,6 +23,7 @@ export default class App extends Component {
           <Route path="/login" element={<LoginPage />} />
 
           <Route path="/signup" element={<SignUpPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     );
