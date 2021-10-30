@@ -1,2 +1,2 @@
 import PageTitle from './page-title';
-export default PageTitle;
+export  {PageTitle};

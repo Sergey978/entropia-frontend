@@ -1,62 +1,30 @@
-import React, { Component } from 'react';
-import Header from '../header'
-import ApiService from '../../services/api-service'
+import React, { Component } from "react";
+import Header from "../header";
+import ApiService from "../../services/api-service";
 
-import {
-  AboutPage,
-  SignUpPage,
-  LoginPage
-} from '../pages';
+import { AboutPage, SignUpPage, LoginPage, HomePage } from "../pages";
 
-import './app.css';
+import "./app.css";
 
-import { BrowserRouter, Routes, Route} from 'react-router-dom';
-
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default class App extends Component {
-
-   apiService = new ApiService();
-  state = {
-    isLoggedIn: false
-  }
-
-  onLogin = () => {
-    this.setState({
-      isLoggedIn: true
-    })
-  }
-
-  onSignUP = (data) => {
-    
-    this.apiService.postForm('/api/auth/register', data);
-    
-  }
+  apiService = new ApiService();
 
   render() {
-    const { isLoggedIn } = this.state;
-
     return (
-      <Router>
+      <BrowserRouter>
         <Header />
-        <Switch>
-        <Route path="/about" render={() => (
-            <AboutPage />
-          )} />
+        <Routes>
+          <Route path="" element={<HomePage />} />
 
+          <Route path="/about" element={<AboutPage />} />
 
-          <Route path="/login" render={() => (
-            <LoginPage isLoggedIn={isLoggedIn} onLogin={this.onLogin} />
-          )} />
+          <Route path="/login" element={<LoginPage />} />
 
-          <Route path="/signup" render={() => (
-            <SignUpPage isLoggedIn={isLoggedIn} onSignUP={this.onSignUP} />
-          )} />
-        </Switch>
-      </Router>
+          <Route path="/signup" element={<SignUpPage />} />
+        </Routes>
+      </BrowserRouter>
     );
   }
 }
-
-
-

@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageTitle } from './PageTitle';
+import { PageTitle } from '../page-title/';
 
 interface Props {
   title?: string;
