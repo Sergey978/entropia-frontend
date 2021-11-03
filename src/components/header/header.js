@@ -17,7 +17,7 @@ export default class Header extends Component {
                 <nav id="navbar-main" aria-label="Primary navigation"
                     className="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-transparent navbar-theme-primary">
                     <div className="container position-relative">
-                        <a className="navbar-brand shadow-soft py-2 px-3 rounded border border-light mr-lg-4" href="./index.html">
+                        <a className="navbar-brand shadow-soft py-2 px-3 rounded border border-light mr-lg-4" href="/">
                             <img className="navbar-brand-dark" src="./assets/img/brand/dark.svg" alt="Logo light"></img>
                             <img className="navbar-brand-light" src="./assets/img/brand/dark.svg" alt="Logo dark"></img>
                         </a>
@@ -26,7 +26,7 @@ export default class Header extends Component {
                             <div className="navbar-collapse-header">
                                 <div className="row">
                                     <div className="col-6 collapse-brand">
-                                        <a href="./index.html" className="navbar-brand shadow-soft py-2 px-3 rounded border border-light">
+                                        <a href="/" className="navbar-brand shadow-soft py-2 px-3 rounded border border-light">
                                             <img src="./assets/img/brand/dark.svg" alt="Themesberg logo"></img>
                                         </a>
                                     </div>
@@ -39,13 +39,13 @@ export default class Header extends Component {
 
                             <ul className="navbar-nav navbar-nav-hover align-items-lg-center">
                                 <li className="nav-item">
-                                    <a href="#" className="nav-link" >
+                                    <a href="/" className="nav-link" >
                                         <span className="nav-link-inner-text">Home</span>
 
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a href="#" className="nav-link" data-toggle="dropdown">
+                                    <a href="/" className="nav-link" data-toggle="dropdown">
                                         <span className="nav-link-inner-text">Components</span>
                                     </a>
                                 </li>
