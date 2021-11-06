@@ -1,15 +1,16 @@
-import React from 'react'
+import React from "react";
+import { Page } from "../page";
 
 
 const AboutPage = () => {
-
-    return (
-        <main>
+  return (
+    <Page>   
+      <main>
             {/*<!-- Hero -->*/}
             <div className="section section-header pb-7">
                 <div className="container">
                     <div className="row justify-content-center">
-                        <div className="col-12 col-lg-8 text-center">
+                        <div className="col-12 col-lg-8 text-center">                           
                             <h1 className="display-2 mb-4">We are Themesberg</h1>
                             <p className="lead mb-5">Themesberg is an independent branding & experience design company working at the intersection of culture, design, and technology. </p>
                             <a className="btn btn-primary" href="./contact.html"><span className="fas fa-book-reader mr-2"></span>Our works</a></div>
@@ -250,8 +251,10 @@ const AboutPage = () => {
         </main>
 
 
-    )
 
-}
+
+    </Page>
+  );
+};
 
 export default AboutPage;
