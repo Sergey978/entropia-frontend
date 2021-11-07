@@ -8,11 +8,17 @@ interface IState {
 }
 
 export default class Header extends Component<IProps, IState> {
+
+  //function for proper working mobile view
+  onMenuItemClick = () =>{
+    document.getElementById('navbar_global')?.classList.remove("show");
+  }
+
   constructor(props: IProps) {
     super(props);
 
     this.state = {
-      isAuthorized: false,
+      isAuthorized: true,
     };
   }
 
@@ -27,7 +33,7 @@ export default class Header extends Component<IProps, IState> {
           <div className="container position-relative">
             <Link
               className="navbar-brand shadow-soft py-2 px-3 rounded border border-light mr-lg-4"
-              to="./index.html"
+              to="/"
             >
               <img
                 className="navbar-brand-dark"
@@ -44,19 +50,13 @@ export default class Header extends Component<IProps, IState> {
               <div className="navbar-collapse-header">
                 <div className="row">
                   <div className="col-6 collapse-brand">
-                    <Link
-                      to="./index.html"
-                      className="navbar-brand shadow-soft py-2 px-3 rounded border border-light"
-                    >
-                      <img
-                        src="./assets/img/brand/dark.svg"
-                        alt="Themesberg logo"
-                      />
+                    <Link to="/" className="navbar-brand shadow-soft py-2 px-3 rounded border border-light"  >
+                      <img src="./assets/img/brand/dark.svg" alt="Themesberg logo" />
                     </Link>
                   </div>
                   <div className="col-6 collapse-close">
                     <Link
-                      to="#navbar_global"
+                      to="#"
                       className="fas fa-times"
                       data-toggle="collapse"
                       data-target="#navbar_global"
@@ -68,9 +68,9 @@ export default class Header extends Component<IProps, IState> {
                   </div>
                 </div>
               </div>
-              <ul className="navbar-nav navbar-nav-hover align-items-lg-center">
+              <ul className="navbar-nav navbar-nav-hover align-items-lg-center" onClick = {this.onMenuItemClick}>
                 <li className="nav-item ">
-                  <Link to="/" className="nav-link">
+                  <Link to="/" className="nav-link " >
                     <span className="nav-link-inner-text">Home</span>
                   </Link>
                 </li>
@@ -80,39 +80,23 @@ export default class Header extends Component<IProps, IState> {
                   </Link>
                 </li>
                 <li className="nav-item dropdown">
-                  <Link to="/" className="nav-link" data-toggle="dropdown">
+                  <Link to="/" className="nav-link" data-toggle="dropdown" >
                     <span className="nav-link-inner-text">Items</span>
                     <span className="fas fa-angle-down nav-link-arrow ml-2"></span>
                   </Link>
                   <ul className="dropdown-menu">
-                    <li>
-                      <Link className="dropdown-item" to="/select-items">Select Items</Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item"  to="/custom-items">Custom Items </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item"  to="/graph-page">Graph</Link>
-                    </li>                      
+                    <li  ><Link className="dropdown-item" to="/select-items" 
+                    onClick = {this.onMenuItemClick}>Select Items</Link></li>                    
+                    <li><Link className="dropdown-item" to="/custom-items">Custom Items </Link></li>
+                    <li><Link className="dropdown-item" to="/graph-page">Graph</Link></li>
                   </ul>
                 </li>
               </ul>
             </div>
             <div className="d-flex align-items-center">
-              <Link
-                to="https://themesberg.com/product/ui-kits/neumorphism-ui-pro"
-                target="_blank"
-                className="btn btn-primary text-secondary mr-3"
-              >
-                <i className="far fa-paper-plane mr-2"></i> Upgrade to PRO
-              </Link>
-              <Link
-                to="https://themesberg.com/docs/neumorphism-ui/getting-started/quick-start/"
-                target="_blank"
-                className="btn btn-primary d-none d-md-inline-block"
-              >
-                <i className="fas fa-book"></i> Docs v1.0
-              </Link>
+            <AuthorisationView isAuthorized= {this.state.isAuthorized} /> 
+
+
               <button
                 className="navbar-toggler ml-2"
                 type="button"
@@ -131,6 +115,9 @@ export default class Header extends Component<IProps, IState> {
     );
   }
 }
+
+
+
 
 const AuthorisationView = ({ isAuthorized }: IState) => {
   const AuthButtons = () => {
