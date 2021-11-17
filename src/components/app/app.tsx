@@ -13,7 +13,6 @@ import {
   NotFoundPage,
 } from "../pages";
 
-import "./app.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
