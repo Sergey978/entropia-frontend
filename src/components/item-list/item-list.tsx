@@ -1,5 +1,6 @@
 import React from 'react'
-import { IItem } from '../../services/data-service'
+import { IItem } from '../../services/data-service';
+
 
 
 interface Props {

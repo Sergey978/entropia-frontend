@@ -1,7 +1,10 @@
 import React from "react";
 import { Page } from "../page/page";
-import { getUserCustomtItems, IItem } from "../../services/data-service";
+import DataService, { IItem } from "../../services/data-service";
 import { ItemList } from "../item-list";
+import AddItemForm from "../add-item-form";
+
+
 
 const CustomItemsPage = () => {
 
@@ -9,10 +12,13 @@ const CustomItemsPage = () => {
     //for test later change hardcoded 
     const userId = 4;
 
-
-
+    const { getUserCustomtItems } = new DataService();
     const [customItems, setCustomItems] = React.useState<IItem[]>([]);
     const [itemsLoading, setItemsLoading] = React.useState(true);
+
+
+
+
 
     React.useEffect(() => {
         let cancelled = false;
@@ -44,25 +50,7 @@ const CustomItemsPage = () => {
                                 <div className="col-lg-12">
                                     <div className="mb-6">
                                         <ItemList data={customItems} />
-                                        {/*v<!-- Form -->*/}
-                                        <form>
-
-                                            <div className="row mb-4">
-                                                <div className="col">
-                                                    <div className="form-outline">
-                                                        <input type="text" id="form3Example1" className="form-control" />
-                                                        <label className="form-label" htmlFor="form3Example1">First name</label>
-                                                    </div>
-                                                </div>
-                                                <div className="col">
-                                                    <div className="form-outline">
-                                                        <input type="text" id="form3Example2" className="form-control" />
-                                                        <label className="form-label" htmlFor="form3Example2">Last name</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        {/*<!-- End of Form -->*/}
+                                        <AddItemForm _userId={userId} />
                                     </div>
                                 </div>
                             </div>
@@ -72,6 +60,7 @@ const CustomItemsPage = () => {
                 </div>
             </div>
             {/* <!-- End of Hero -->   */}
+
 
 
         </Page>

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Header from "../header";
-import ApiService from "../../services/api-service";
-
+import DataService from "../../services/data-service";
 
 import {
   AboutPage,
@@ -18,12 +17,12 @@ import {
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default class App extends Component {
-  apiService = new ApiService();
+  apiService = new DataService();
 
   render() {
     return (
-      <BrowserRouter>
-        
+      <BrowserRouter>        
+
           <Header />
           <Routes>
             <Route path="" element={<HomePage />} />
@@ -35,7 +34,7 @@ export default class App extends Component {
             <Route path="/graph-page" element={<GraphPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
-        
+       
       </BrowserRouter>
     );
   }
