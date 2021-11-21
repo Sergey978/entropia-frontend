@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Header from "../header";
 import ApiService from "../../services/api-service";
 
+
 import {
   AboutPage,
   SignUpPage,
@@ -22,17 +23,19 @@ export default class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/select-items" element={<SelectItemsPage />} />
-          <Route path="/custom-items" element={<CustomItemsPage />} />
-          <Route path="/graph-page" element={<GraphPage />} />         
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+        
+          <Header />
+          <Routes>
+            <Route path="" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/select-items" element={<SelectItemsPage />} />
+            <Route path="/custom-items" element={<CustomItemsPage />} />
+            <Route path="/graph-page" element={<GraphPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        
       </BrowserRouter>
     );
   }
