@@ -22,6 +22,7 @@ export interface PostUserCustomItem{
     itemCost: number;
 }
 
+// Singleton
 export default class DataService {
     users: IUser[] = [
         {
@@ -176,6 +177,17 @@ export default class DataService {
 
     ]
 
+    private static instance: DataService;
+
+    private constructor() { };
+
+    public static getInstance(): DataService {
+        if (!DataService.instance) {
+            DataService.instance = new DataService();
+        }
+
+        return DataService.instance;
+    }
 
     // const standartItems: IItem[] = [
     //     {
@@ -264,24 +276,18 @@ export default class DataService {
     addUserCustomItem = async (
         customItem: PostUserCustomItem): Promise<IItem|undefined> => {
         await this.wait(500);
-        const user = this.users.filter((user) => user.userId === customItem.userId )[0];
-        console.log( user);
-        const maxId = Math.max.apply(Math, user.customItems.map(function (item) { return item.itemId; }));
-        console.log( "maxId---------------"  );
-        console.log(maxId);
+        const user = this.users.filter((user) => user.userId === customItem.userId )[0];       
+        const maxId = Math.max.apply(Math, user.customItems.map(function (item) { return item.itemId; }));       
         const newId = maxId+1; 
         const newCustomItem: IItem = {
             itemId: newId,
             itemName: customItem.itemName,
             cost: customItem.itemCost,
-            price: 0,
+            price: 100,
             selected: true
         };
-        console.log( "before---------------"  );
-        console.log(user.customItems)
-        user.customItems.push(newCustomItem);
-        console.log( "after---------------" );
-        console.log(user.customItems)
+       
+        user.customItems.push(newCustomItem);     
         
         return newCustomItem;
     }

@@ -6,17 +6,20 @@ import AddItemForm from "../add-item-form";
 
 
 
+
+
 const CustomItemsPage = () => {
 
 
     //for test later change hardcoded 
     const userId = 4;
 
-    const { getUserCustomtItems } = new DataService();
+    const { getUserCustomtItems } = DataService.getInstance();
     const [customItems, setCustomItems] = React.useState<IItem[]>([]);
     const [itemsLoading, setItemsLoading] = React.useState(true);
-
-
+    const [successfullySubmitted, setSuccessfullySubmitted] = React.useState(
+        false,
+    );
 
 
 
@@ -33,7 +36,31 @@ const CustomItemsPage = () => {
         return () => {
             cancelled = true;
         };
-    }, []);
+    }, [getUserCustomtItems, userId]);
+
+    // todo send _submitResult function to form
+    const submitResult = (result: boolean) => {
+        setSuccessfullySubmitted(result ? true : false);
+    }
+
+    const alertCloseclick = () => {
+        setSuccessfullySubmitted(false);
+    }
+
+    const onDeleteCustomItem = (id: number) => {
+
+        console.log("delete----id---------");
+        console.log(id);
+
+    }
+
+    const onHideItem = (id: number) => {
+
+        console.log("hide----id---------");
+        console.log(id);
+
+    }
+
 
 
     return (
@@ -44,14 +71,30 @@ const CustomItemsPage = () => {
                 <div className="container z-2">
                     <div className="row mb-4 justify-content-center">
                         <div className="col-12 col-md-8 col-lg-7">
+
                             <h1 className="display-3 mb-4">Custom Items</h1>
 
                             <div className="row justify-content-center">
-                                <div className="col-lg-12">
+
+                                <div className="col-lg-10">
                                     <div className="mb-6">
-                                        <ItemList data={customItems} />
-                                        <AddItemForm _userId={userId} />
+                                        <ItemList data={customItems}
+                                            onDelete={onDeleteCustomItem}
+                                            onHide={onHideItem} />
+                                            
+                                        {successfullySubmitted && (
+                                            <div className="alert alert-success alert-dismissible shadow-soft fade show" role="alert">
+                                                <span className="alert-inner--icon"><span className="far fa-thumbs-up"></span></span>
+                                                <span className="alert-inner--text"><strong>Well done!</strong> Your item was successful added.</span>
+                                                <button type="button" className="close" data-dismiss="alert" onClick={alertCloseclick}>
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                        )}
+                                        <AddItemForm _userId={userId} _submitResult={submitResult} _submited={successfullySubmitted} />
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -60,8 +103,6 @@ const CustomItemsPage = () => {
                 </div>
             </div>
             {/* <!-- End of Hero -->   */}
-
-
 
         </Page>
     );

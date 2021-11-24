@@ -17,7 +17,7 @@ import {
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default class App extends Component {
-  apiService = new DataService();
+  apiService =  DataService.getInstance();
 
   render() {
     return (
