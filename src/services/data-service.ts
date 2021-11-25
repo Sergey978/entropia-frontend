@@ -16,7 +16,7 @@ export interface IUser {
     customItems: IItem[]
 };
 
-export interface PostUserCustomItem{
+export interface PostUserCustomItem {
     userId: number;
     itemName: string;
     itemCost: number;
@@ -188,6 +188,62 @@ export default class DataService {
 
         return DataService.instance;
     }
+    wait = async (ms: number): Promise<void> => {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    };
+
+    getUserCustomtItems = async (userId: number): Promise<IItem[]> => {
+        await this.wait(500);
+        //const results = questions.filter((q) => q.questionId === questionId);
+        const result = this.users.filter((user) => user.userId === userId)[0];
+
+        const { customItems } = result;
+        return customItems;
+    };
+
+    deleteCustomItem = async(userId: number, itemId: number): Promise<IItem> => {
+        await this.wait(300);
+        const user = this.users.filter((user) => user.userId === userId)[0];
+        const deletedCustomItem = user.customItems.filter((item) => item.itemId === itemId)[0];
+        user.customItems = user.customItems.filter((item) => item.itemId !== itemId);
+        
+        return deletedCustomItem;
+
+    }
+
+
+
+    addUserCustomItem = async (
+        customItem: PostUserCustomItem): Promise<IItem | undefined> => {
+        await this.wait(500);
+        const user = this.users.filter((user) => user.userId === customItem.userId)[0];
+        const maxId = Math.max.apply(Math, user.customItems.map(function (item) { return item.itemId; }));
+        const newId = maxId + 1;
+        const newCustomItem: IItem = {
+            itemId: newId,
+            itemName: customItem.itemName,
+            cost: customItem.itemCost,
+            price: 100,
+            selected: true
+        };
+
+        user.customItems.push(newCustomItem);
+
+       
+        return newCustomItem;
+    }
+
+}
+
+
+
+    // export const getStandartItems = async (): Promise<IItem[]> => {
+    //     await wait(500);
+    //     return standartItems;
+    // };
+
+
+
 
     // const standartItems: IItem[] = [
     //     {
@@ -258,48 +314,3 @@ export default class DataService {
 
 
     //simulation network qury
-    wait = async (ms: number): Promise<void> => {
-        return new Promise((resolve) => setTimeout(resolve, ms));
-    };
-
-    getUserCustomtItems = async (userId: number): Promise<IItem[]> => {
-        await this.wait(500);
-        //const results = questions.filter((q) => q.questionId === questionId);
-        const result = this.users.filter((user) => user.userId === userId)[0];
-        
-        const { customItems } = result;
-        return customItems;
-    };
-
-   
-
-    addUserCustomItem = async (
-        customItem: PostUserCustomItem): Promise<IItem|undefined> => {
-        await this.wait(500);
-        const user = this.users.filter((user) => user.userId === customItem.userId )[0];       
-        const maxId = Math.max.apply(Math, user.customItems.map(function (item) { return item.itemId; }));       
-        const newId = maxId+1; 
-        const newCustomItem: IItem = {
-            itemId: newId,
-            itemName: customItem.itemName,
-            cost: customItem.itemCost,
-            price: 100,
-            selected: true
-        };
-       
-        user.customItems.push(newCustomItem);     
-        
-        return newCustomItem;
-    }
-
-}
-
-
-
-    // export const getStandartItems = async (): Promise<IItem[]> => {
-    //     await wait(500);
-    //     return standartItems;
-    // };
-
-
-
