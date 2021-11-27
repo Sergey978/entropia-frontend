@@ -211,6 +211,15 @@ export default class DataService {
 
     }
 
+    hideCustomItem = async (userId: number, itemId: number) =>{
+        await this.wait(300);
+      //  objIndex = myArray.findIndex((obj => obj.id == 1));
+        const user = this.users.filter((user) => user.userId === userId)[0];
+        const customItemIndex = user.customItems.findIndex(item => item.itemId == itemId);
+        const currentSelected = user.customItems[customItemIndex].selected;
+        user.customItems[customItemIndex].selected = !currentSelected;
+    }
+
 
 
     addUserCustomItem = async (
