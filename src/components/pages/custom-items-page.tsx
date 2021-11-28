@@ -12,7 +12,7 @@ const CustomItemsPage = () => {
     //for test later change hardcoded 
     const userId = 4;
 
-    const { getUserCustomtItems, deleteCustomItem } = DataService.getInstance();
+    const { getUserCustomtItems, deleteCustomItem, hideCustomItem  } = DataService.getInstance();
     const [customItems, setCustomItems] = React.useState<IItem[]>([]);
     const [itemsLoading, setItemsLoading] = React.useState(true);
     const [successfullySubmitted, setSuccessfullySubmitted] = React.useState(
@@ -37,7 +37,7 @@ const CustomItemsPage = () => {
         return () => {
             cancelled = true;
         };
-    }, [ userId, successfullySubmitted, successfullyDeleted]);
+    }, [ userId, successfullySubmitted, successfullyDeleted, itemsLoading]);
 
     // todo send _submitResult function to form
     const submitResult = (result: boolean) => {
@@ -59,7 +59,12 @@ const CustomItemsPage = () => {
 
     }
 
-    const onHideItem = (id: number) => {
+    const onHideItem = async (id: number) => {
+        const result = await hideCustomItem(userId, id);
+        if(result){
+            setItemsLoading(true);
+
+        }
        
 
     }
