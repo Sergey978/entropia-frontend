@@ -8,7 +8,7 @@ interface Props {
   data: IItem[];
   onDelete: (itemId: number) => void;
   onHide: (itemId: number) => void;
-  _deleted: boolean;
+  _deleted?: boolean;
 
 }
 

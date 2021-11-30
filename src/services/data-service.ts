@@ -201,6 +201,16 @@ export default class DataService {
         return customItems;
     };
 
+
+    getUserStandartItems = async (userId: number): Promise<IItem[]> => {
+        await this.wait(500);
+        //const results = questions.filter((q) => q.questionId === questionId);
+        const result = this.users.filter((user) => user.userId === userId)[0];
+
+        const { standartItems } = result;
+        return standartItems;
+    };
+
     deleteCustomItem = async(userId: number, itemId: number): Promise<IItem> => {
         await this.wait(300);
         const user = this.users.filter((user) => user.userId === userId)[0];
@@ -219,6 +229,17 @@ export default class DataService {
         const currentSelected = user.customItems[customItemIndex].selected;
         user.customItems[customItemIndex].selected = !currentSelected;
         return user.customItems[customItemIndex];
+    }
+
+
+    hideStandartItem = async (userId: number, itemId: number): Promise<IItem> =>{
+        await this.wait(300);
+      //  objIndex = myArray.findIndex((obj => obj.id == 1));
+        const user = this.users.filter((user) => user.userId === userId)[0];
+        const standartItemIndex = user.standartItems.findIndex(item => item.itemId == itemId);
+        const currentSelected = user.standartItems[standartItemIndex].selected;
+        user.customItems[standartItemIndex].selected = !currentSelected;
+        return user.customItems[standartItemIndex];
     }
 
 
