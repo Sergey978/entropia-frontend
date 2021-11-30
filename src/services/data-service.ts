@@ -225,7 +225,7 @@ export default class DataService {
         await this.wait(300);
       //  objIndex = myArray.findIndex((obj => obj.id == 1));
         const user = this.users.filter((user) => user.userId === userId)[0];
-        const customItemIndex = user.customItems.findIndex(item => item.itemId == itemId);
+        const customItemIndex = user.customItems.findIndex(item => item.itemId === itemId);
         const currentSelected = user.customItems[customItemIndex].selected;
         user.customItems[customItemIndex].selected = !currentSelected;
         return user.customItems[customItemIndex];
@@ -236,9 +236,9 @@ export default class DataService {
         await this.wait(300);
       //  objIndex = myArray.findIndex((obj => obj.id == 1));
         const user = this.users.filter((user) => user.userId === userId)[0];
-        const standartItemIndex = user.standartItems.findIndex(item => item.itemId == itemId);
+        const standartItemIndex = user.standartItems.findIndex(item => item.itemId === itemId);
         const currentSelected = user.standartItems[standartItemIndex].selected;
-        user.customItems[standartItemIndex].selected = !currentSelected;
+        user.standartItems[standartItemIndex].selected = !currentSelected;       
         return user.customItems[standartItemIndex];
     }
 

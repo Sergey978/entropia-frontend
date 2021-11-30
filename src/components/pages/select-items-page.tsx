@@ -2,8 +2,6 @@ import React from "react";
 import { Page } from "../page/page";
 import DataService, { IItem } from "../../services/data-service";
 import { ItemList } from "../item-list";
-import AddItemForm from "../add-item-form";
-
 
 
 const CustomItemsPage = () => {
@@ -12,10 +10,10 @@ const CustomItemsPage = () => {
     //for test later change hardcoded 
     const userId = 4;
 
-    const { getUserStandartItems, hideStandartItem  } = DataService.getInstance();
+    const { getUserStandartItems, hideStandartItem } = DataService.getInstance();
     const [standartItems, setStandartItems] = React.useState<IItem[]>([]);
     const [itemsLoading, setItemsLoading] = React.useState(true);
-   
+
 
 
 
@@ -23,7 +21,7 @@ const CustomItemsPage = () => {
         let cancelled = false;
         const doGetCustomItems = async () => {
             const customItems = await getUserStandartItems(userId);
-               if (!cancelled) {
+            if (!cancelled) {
                 setStandartItems(customItems);
                 setItemsLoading(false);
             }
@@ -32,21 +30,20 @@ const CustomItemsPage = () => {
         return () => {
             cancelled = true;
         };
-    }, [ userId, itemsLoading]);
+    }, [userId, itemsLoading]);
 
-    
+
 
     const onHideItem = async (id: number) => {
         const result = await hideStandartItem(userId, id);
-        if(result){
-            setItemsLoading(true);
+        if (result) {
+            setItemsLoading(true);          
 
         }
-       
 
     }
 
-
+    
 
     return (
         <Page>
@@ -64,7 +61,7 @@ const CustomItemsPage = () => {
                                 <div className="col-lg-10">
                                     <div className="mb-6">
                                         <ItemList data={standartItems}                                           
-                                            onHide={onHideItem} />                                       
+                                            onHide={onHideItem} />
                                     </div>
 
                                 </div>
