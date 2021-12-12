@@ -12,7 +12,7 @@ const CustomItemsPage = () => {
     //for test later change hardcoded 
     const userId = 4;
 
-    const { getUserCustomtItems, deleteCustomItem, hideCustomItem  } = DataService.getInstance();
+    const { getUserCustomtItems, deleteCustomItem, hideCustomItem } = DataService.getInstance();
     const [customItems, setCustomItems] = React.useState<IItem[]>([]);
     const [itemsLoading, setItemsLoading] = React.useState(true);
     const [successfullySubmitted, setSuccessfullySubmitted] = React.useState(
@@ -28,7 +28,7 @@ const CustomItemsPage = () => {
         let cancelled = false;
         const doGetCustomItems = async () => {
             const customItems = await getUserCustomtItems(userId);
-               if (!cancelled) {
+            if (!cancelled) {
                 setCustomItems(customItems);
                 setItemsLoading(false);
             }
@@ -37,7 +37,7 @@ const CustomItemsPage = () => {
         return () => {
             cancelled = true;
         };
-    }, [ userId, successfullySubmitted, successfullyDeleted, itemsLoading]);
+    }, [userId, successfullySubmitted, successfullyDeleted, itemsLoading]);
 
     // todo send _submitResult function to form
     const submitResult = (result: boolean) => {
@@ -45,8 +45,8 @@ const CustomItemsPage = () => {
     }
 
     const alertCloseclick = (action: string) => {
-      if(action === "add")  setSuccessfullySubmitted(false);
-      if(action === "delete")  setSuccessfullyDeleted(false);
+        if (action === "add") setSuccessfullySubmitted(false);
+        if (action === "delete") setSuccessfullyDeleted(false);
     }
 
     const onDeleteCustomItem = async (id: number) => {
@@ -61,11 +61,11 @@ const CustomItemsPage = () => {
 
     const onHideItem = async (id: number) => {
         const result = await hideCustomItem(userId, id);
-        if(result){
+        if (result) {
             setItemsLoading(true);
 
         }
-       
+
 
     }
 
@@ -87,15 +87,15 @@ const CustomItemsPage = () => {
                                 <div className="col-lg-10">
                                     <div className="mb-6">
                                         <ItemList data={customItems}
-                                            onDelete={onDeleteCustomItem} 
-                                            _deleted= {successfullyDeleted}
+                                            onDelete={onDeleteCustomItem}
+                                            _deleted={successfullyDeleted}
                                             onHide={onHideItem} />
 
                                         {successfullySubmitted && (
                                             <div className="alert alert-success alert-dismissible shadow-soft fade show" role="alert">
                                                 <span className="alert-inner--icon"><span className="far fa-thumbs-up"></span></span>
                                                 <span className="alert-inner--text"><strong>Well done!</strong> Your item was successfully added.</span>
-                                                <button type="button" className="close" data-dismiss="alert" onClick={() =>alertCloseclick("add")}>
+                                                <button type="button" className="close" data-dismiss="alert" onClick={() => alertCloseclick("add")}>
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
@@ -106,7 +106,7 @@ const CustomItemsPage = () => {
                                             <div className="alert alert-danger alert-dismissible shadow-soft fade show" role="alert">
                                                 <span className="alert-inner--icon"><span className="far fa-thumbs-up"></span></span>
                                                 <span className="alert-inner--text"><strong>Well done!</strong> Your item was successfully deleted.</span>
-                                                <button type="button" className="close" data-dismiss="alert" onClick={() =>alertCloseclick("delete")}>
+                                                <button type="button" className="close" data-dismiss="alert" onClick={() => alertCloseclick("delete")}>
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
@@ -114,7 +114,7 @@ const CustomItemsPage = () => {
                                         )}
 
 
-                                        <AddItemForm _userId={userId} _submitResult={submitResult}   _submited={successfullySubmitted}  />
+                                        <AddItemForm _userId={userId} _submitResult={submitResult} _submited={successfullySubmitted} />
                                     </div>
 
                                 </div>
@@ -126,6 +126,7 @@ const CustomItemsPage = () => {
             </div>
             {/* <!-- End of Hero -->   */}
 
+           
         </Page>
     );
 };
