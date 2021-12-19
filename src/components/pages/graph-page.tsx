@@ -21,7 +21,7 @@ const GraphPage = () => {
 
       {/* <!-- Section -->   */}
 
-      <section className="section section-lg pt-0">
+      <section className="section pt-0">
         <div className="container">
           <div className="row">
             <div className="col">
@@ -76,9 +76,9 @@ const GraphPage = () => {
                           <label >Step</label>
                           <input type="text" className="form-control" placeholder="" />
                         </div>
-                        <div className="col">
-                          <label >Item</label>
-                          <input type="text" className="form-control" placeholder="" />
+                        <div className="col align-self-end" >
+
+                          <button className="btn btn-primary text-success  btn-block" type="button">    Success   </button>
                         </div>
                       </div>
 
@@ -97,62 +97,112 @@ const GraphPage = () => {
 
 
 
-
-
-
-
-
-
       {/* <!-- Section Example -->   */}
 
-      <section className="section section-lg pt-0">
+      <section className="section  pt-0">
         <div className="container">
-          <div className="row">
-            <div className="col">
-              <div className="card bg-primary shadow-soft border-light p-4">
-                <div className="row">
-                  <div className="col-12 col-lg-4 px-md-0 mb-4 mb-lg-0">
-                    <div className="card-body text-center bg-primary py-5">
-                      <div className="icon icon-shape shadow-inset border-light rounded-circle mb-3">
-                        <span className="far fa-eye"></span>
-                      </div>
+          <div className="card bg-primary shadow-soft border-light p-4 ">
+            <div className="row">
 
-                      <h2 className="h4 mr-2">
-                        Audience
-                      </h2>
 
-                      <p className="mb-0">At Themesberg, we use human, brand, and cultural insights to unlock strategic business opportunities for clients.</p>
-                    </div>
-                  </div>
-                  <div className="col-12 col-lg-4 px-md-0 mb-4 mb-lg-0">
-                    <div className="card-body text-center bg-primary py-5">
-                      <div className="icon icon-shape shadow-inset border-light rounded-circle mb-3">
-                        <span className="fas fa-medal"></span>
-                      </div>
+              <div className="col-md-7">
+                <div className="graph-container">
+                  <div className="graph" id="graph">
+                    rrrrrrrrrrrrrrrrrr
 
-                      <h2 className="h4 mr-2">
-                        Branding
-                      </h2>
 
-                      <p className="mb-0">Despite being cautioned not to judge a book by its cover, we all do it every day. We making your site looks better.</p>
-                    </div>
-                  </div>
-                  <div className="col-12 col-lg-4 px-md-0">
-                    <div className="card-body text-center bg-primary py-5">
-                      <div className="icon icon-shape shadow-inset border-light rounded-circle mb-3">
-                        <span className="fas fa-puzzle-piece"></span>
-                      </div>
-
-                      <h2 className="h4 mr-2">
-                        Production
-                      </h2>
-
-                      <p className="mb-0">Today, truly creative sells. Get innovative ideas and polished finish pieces from our creative agency.</p>
-                    </div>
                   </div>
                 </div>
               </div>
+              <div className="col">
+                <div className="col-md-5">
+                  <table className="table table-fixed">
+                    <thead>
+                      <tr>
+                        <th className="col-xs-2 text-center">Quantity</th>
+                        <th className="col-xs-3 text-center">Selling Price</th>
+                        <th className="col-xs-3 text-center">Profit</th>
+                        <th className="col-xs-2 text-center">Tax</th>
+                        <th className="col-xs-2 text-center">Markup</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody"><tr id="row-0">
+                      <td className="col-xs-2 text-center">500</td>
+                      <td className="col-xs-3 text-center">30</td>
+                      <td className="col-xs-3 text-center">3.00</td>
+                      <td className="col-xs-2 text-center">0.75</td>
+                      <td className="col-xs-2 text-center">120.00</td>
+                    </tr>
+                      <tr id="row-1">
+                        <td className="col-xs-2 text-center">505</td>
+                        <td className="col-xs-3 text-center">30</td>
+                        <td className="col-xs-3 text-center">2.75</td>
+                        <td className="col-xs-2 text-center">0.74</td>
+                        <td className="col-xs-2 text-center">118.81</td>
+                      </tr>
+                      <tr id="row-2">
+                        <td className="col-xs-2 text-center">510</td>
+                        <td className="col-xs-3 text-center">31</td>
+                        <td className="col-xs-3 text-center">3.45</td>
+                        <td className="col-xs-2 text-center">0.77</td>
+                        <td className="col-xs-2 text-center">121.57</td>
+                      </tr>
+                      <tr id="row-3">
+                        <td className="col-xs-2 text-center">515</td>
+                        <td className="col-xs-3 text-center">31</td>
+                        <td className="col-xs-3 text-center">3.20</td>
+                        <td className="col-xs-2 text-center">0.76</td>
+                        <td className="col-xs-2 text-center">120.39</td>
+                      </tr>
+                      <tr id="row-4">
+                        <td className="col-xs-2 text-center">520</td>
+                        <td className="col-xs-3 text-center">31</td>
+                        <td className="col-xs-3 text-center">2.95</td>
+                        <td className="col-xs-2 text-center">0.75</td>
+                        <td className="col-xs-2 text-center">119.23</td>
+                      </tr>
+                      <tr id="row-5">
+                        <td className="col-xs-2 text-center">525</td>
+                        <td className="col-xs-3 text-center">31</td>
+                        <td className="col-xs-3 text-center">2.70</td>
+                        <td className="col-xs-2 text-center">0.74</td>
+                        <td className="col-xs-2 text-center">118.10</td>
+                      </tr>
+                      <tr id="row-6">
+                        <td className="col-xs-2 text-center">530</td>
+                        <td className="col-xs-3 text-center">32</td>
+                        <td className="col-xs-3 text-center">3.40</td>
+                        <td className="col-xs-2 text-center">0.77</td>
+                        <td className="col-xs-2 text-center">120.75</td>
+                      </tr>
+                      <tr id="row-7">
+                        <td className="col-xs-2 text-center">535</td>
+                        <td className="col-xs-3 text-center">32</td>
+                        <td className="col-xs-3 text-center">3.15</td>
+                        <td className="col-xs-2 text-center">0.76</td>
+                        <td className="col-xs-2 text-center">119.63</td>
+                      </tr>
+                      <tr id="row-8">
+                        <td className="col-xs-2 text-center">540</td>
+                        <td className="col-xs-3 text-center">32</td>
+                        <td className="col-xs-3 text-center">2.90</td>
+                        <td className="col-xs-2 text-center">0.75</td>
+                        <td className="col-xs-2 text-center">118.52</td>
+                      </tr>
+                      <tr id="row-9">
+                        <td className="col-xs-2 text-center">545</td>
+                        <td className="col-xs-3 text-center">32</td>
+                        <td className="col-xs-3 text-center">2.65</td>
+                        <td className="col-xs-2 text-center">0.74</td>
+                        <td className="col-xs-2 text-center">117.43</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
             </div>
+
           </div>
         </div>
       </section>
