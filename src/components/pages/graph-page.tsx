@@ -1,5 +1,6 @@
 import React from "react";
 import { Page } from "../page/page";
+import GraphContainer from "../graph-container";
 
 const GraphPage = () => {
   return (
@@ -106,15 +107,9 @@ const GraphPage = () => {
 
 
               <div className="col-md-7">
-                <div className="graph-container">
-                  <div className="graph" id="graph">
-                    rrrrrrrrrrrrrrrrrr
-
-
-                  </div>
-                </div>
+                <GraphContainer />
               </div>
-              <div className="col">
+              
                 <div className="col-md-5">
                   <table className="table table-fixed">
                     <thead>
@@ -200,7 +195,7 @@ const GraphPage = () => {
                   </table>
                 </div>
 
-              </div>
+             
             </div>
 
           </div>
