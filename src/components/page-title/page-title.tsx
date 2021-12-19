@@ -6,8 +6,6 @@ interface Props {
 }
 const PageTitle = ({ children }: Props) => (
 
-
-
   // <!-- Hero -->
   <div className="section section-header pb-7">
     <div className="container">
