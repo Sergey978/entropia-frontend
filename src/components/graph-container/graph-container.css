@@ -47,5 +47,41 @@
     border: 1px solid #afafaf; /* размер и цвет границы блока */
 }
 
+      
+
+.slug-x{
+    position: absolute;
+}
+
+.slug-y{
+    position: absolute;
+}
+
+.point{
+    position: absolute;
+    cursor: pointer;
+    width: 8px;
+    height: 8px;
+    border:#000000 solid 1px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.point-selected{
+    position: absolute;
+    cursor: pointer;
+    width:12px;
+    height:12px;
+    background: #74CB47;
+    -moz-border-radius:12px;
+    -webkit-border-radius:12px;
+    border-radius:12px;
+}
+
+.out-of-range{
+    position: absolute;
+    color: purple;
+    font-size: 36px;
     
-   
+}
