@@ -1,6 +1,11 @@
 import React from "react";
+import { IItem } from "../../services/data-service";
 
-const GraphForm = () => (
+interface Props{
+    data: IItem[];
+}
+
+const GraphForm = ({data}:Props) => (
 
     /* <!-- Section -->   */
 
@@ -16,10 +21,13 @@ const GraphForm = () => (
                                         <div className="col">
                                             <label >Item</label>
                                             <select className="custom-select" >
-                                                <option defaultValue = "">Choose...</option>
-                                                <option value="1">United States</option>
-                                                <option value="2">Germany</option>
-                                                <option value="3">Canada</option>
+                                                {
+                                                    data.map((item) => (
+                                                        <option  key = {item.itemId} value= {item.itemId}>{item.itemName}</option>
+                                                    ))
+                                                }
+                                                
+                                                
                                             </select>
                                         </div>
                                     </div>

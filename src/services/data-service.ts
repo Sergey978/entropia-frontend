@@ -2,9 +2,15 @@
 export interface IItem {
     itemId: number;
     itemName: string;
-    cost: number;
-    price: number;
+    cost: number, // price for one item PED
+    purchasePrice: number, // price in %
+    sellPrice: number, // price in PED
+    markup: number, //PED
+    beginQuantity: number,
+    quantity: number,
+    stepQuantity: number,
     selected: boolean;
+   
 
 };
 
@@ -34,9 +40,14 @@ export default class DataService {
                     itemId: 1,
                     itemName: "Muscle Oil",
                     cost: 0.03,
-                    price: 100.7,
-                    selected: true
-
+                    purchasePrice: 100.7,
+                    sellPrice: 103.2,
+                    markup: 2,
+                    beginQuantity: 200,
+                    quantity: 500,
+                    stepQuantity: 5,
+                    selected: true,
+                  
                 },
             ],
             customItems:
@@ -45,8 +56,15 @@ export default class DataService {
                         itemId: 1,
                         itemName: "Pancreas Oil",
                         cost: 0.03,
-                        price: 100.4,
-                        selected: true
+                        purchasePrice: 100.4,
+                        sellPrice: 103.2,
+                        markup: 2,
+                        beginQuantity: 200,
+                        quantity: 500,
+                        stepQuantity: 5,
+                        selected: true,
+                       
+
                     },
 
 
@@ -61,17 +79,18 @@ export default class DataService {
                     itemId: 1,
                     itemName: "Muscle Oil",
                     cost: 0.03,
-                    price: 100.7,
-                    selected: true
+                    purchasePrice: 100.7,
+                    sellPrice: 103.2,
+                    markup: 2,
+                    beginQuantity: 200,
+                    quantity: 500,
+                    stepQuantity: 5,
+                    selected: true,
+                   
+
 
                 },
-                {
-                    itemId: 2,
-                    itemName: "Eye Oil",
-                    cost: 0.05,
-                    price: 100.99,
-                    selected: true
-                },
+
             ],
             customItems:
                 [
@@ -79,30 +98,28 @@ export default class DataService {
                         itemId: 2,
                         itemName: "Pancreas Oil",
                         cost: 0.03,
-                        price: 100.4,
-                        selected: true
+                        purchasePrice: 100.4,
+                        sellPrice: 103.2,
+                        markup: 2,
+                        beginQuantity: 200,
+                        quantity: 500,
+                        stepQuantity: 5,
+                        selected: true,
+                     
+
                     },
                     {
                         itemId: 3,
                         itemName: "Pancreas Oil",
                         cost: 0.03,
-                        price: 100.4,
-                        selected: true
-                    },
-
-                    {
-                        itemId: 4,
-                        itemName: "Thyroid Oil",
-                        cost: 0.05,
-                        price: 100.5,
-                        selected: true
-                    },
-                    {
-                        itemId: 5,
-                        itemName: "Iron ingot",
-                        cost: 0.2,
-                        price: 102.82,
-                        selected: true
+                        purchasePrice: 100.4,
+                        sellPrice: 103.2,
+                        markup: 2,
+                        beginQuantity: 200,
+                        quantity: 500,
+                        stepQuantity: 5,
+                        selected: true,
+                      
                     },
 
 
@@ -116,15 +133,29 @@ export default class DataService {
                     itemId: 3,
                     itemName: "Adrenal Oil",
                     cost: 0.2,
-                    price: 100.99,
-                    selected: true
+                    purchasePrice: 100.99,
+                    sellPrice: 103.2,
+                    markup: 2,
+                    beginQuantity: 200,
+                    quantity: 500,
+                    stepQuantity: 5,
+                    selected: true,
+                  
+
                 },
                 {
                     itemId: 4,
                     itemName: "Lysterium ignot",
                     cost: 0.03,
-                    price: 104.44,
-                    selected: true
+                    purchasePrice: 104.44,
+                    sellPrice: 103.2,
+                    markup: 2,
+                    beginQuantity: 200,
+                    quantity: 500,
+                    stepQuantity: 5,
+                    selected: true,
+                  
+
                 },
             ],
             customItems:
@@ -133,47 +164,9 @@ export default class DataService {
                 ]
         },
 
-        {
-            userId: 6,
-            userName: "Peter",
-            standartItems: [
 
-            ],
-            customItems:
-                [
 
-                    {
-                        itemId: 2,
-                        itemName: "Pancreas Oil",
-                        cost: 0.03,
-                        price: 100.4,
-                        selected: true
-                    },
-                    {
-                        itemId: 3,
-                        itemName: "Pancreas Oil",
-                        cost: 0.03,
-                        price: 100.4,
-                        selected: true
-                    },
 
-                    {
-                        itemId: 4,
-                        itemName: "Thyroid Oil",
-                        cost: 0.05,
-                        price: 100.5,
-                        selected: true
-                    },
-                    {
-                        itemId: 5,
-                        itemName: "Iron ingot",
-                        cost: 0.2,
-                        price: 102.82,
-                        selected: true
-                    },
-
-                ]
-        },
 
     ]
 
@@ -211,19 +204,19 @@ export default class DataService {
         return standartItems;
     };
 
-    deleteCustomItem = async(userId: number, itemId: number): Promise<IItem> => {
+    deleteCustomItem = async (userId: number, itemId: number): Promise<IItem> => {
         await this.wait(300);
         const user = this.users.filter((user) => user.userId === userId)[0];
         const deletedCustomItem = user.customItems.filter((item) => item.itemId === itemId)[0];
         user.customItems = user.customItems.filter((item) => item.itemId !== itemId);
-        
+
         return deletedCustomItem;
 
     }
 
-    hideCustomItem = async (userId: number, itemId: number): Promise<IItem> =>{
+    hideCustomItem = async (userId: number, itemId: number): Promise<IItem> => {
         await this.wait(300);
-      //  objIndex = myArray.findIndex((obj => obj.id == 1));
+        //  objIndex = myArray.findIndex((obj => obj.id == 1));
         const user = this.users.filter((user) => user.userId === userId)[0];
         const customItemIndex = user.customItems.findIndex(item => item.itemId === itemId);
         const currentSelected = user.customItems[customItemIndex].selected;
@@ -232,13 +225,13 @@ export default class DataService {
     }
 
 
-    hideStandartItem = async (userId: number, itemId: number): Promise<IItem> =>{
+    hideStandartItem = async (userId: number, itemId: number): Promise<IItem> => {
         await this.wait(300);
-      //  objIndex = myArray.findIndex((obj => obj.id == 1));
+        //  objIndex = myArray.findIndex((obj => obj.id == 1));
         const user = this.users.filter((user) => user.userId === userId)[0];
         const standartItemIndex = user.standartItems.findIndex(item => item.itemId === itemId);
         const currentSelected = user.standartItems[standartItemIndex].selected;
-        user.standartItems[standartItemIndex].selected = !currentSelected;       
+        user.standartItems[standartItemIndex].selected = !currentSelected;
         return user.customItems[standartItemIndex];
     }
 
@@ -254,13 +247,20 @@ export default class DataService {
             itemId: newId,
             itemName: customItem.itemName,
             cost: customItem.itemCost,
-            price: 100,
-            selected: true
+            purchasePrice: 100,
+            sellPrice: 103.2,
+            markup: 2,
+            beginQuantity: 200,
+            quantity: 500,
+            stepQuantity: 5,
+            selected: true,
+           
+
         };
 
         user.customItems.push(newCustomItem);
 
-       
+
         return newCustomItem;
     }
 

@@ -19,14 +19,14 @@ const CustomItemsPage = () => {
 
     React.useEffect(() => {
         let cancelled = false;
-        const doGetCustomItems = async () => {
+        const doGetStandartItems = async () => {
             const customItems = await getUserStandartItems(userId);
             if (!cancelled) {
                 setStandartItems(customItems);
                 setItemsLoading(false);
             }
         };
-        doGetCustomItems();
+        doGetStandartItems();
         return () => {
             cancelled = true;
         };
