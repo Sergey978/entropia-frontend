@@ -26,7 +26,7 @@ export const ItemList = ({ data, onDelete, onHide, _deleted }: Props) => (
       {
         data.map((item) => (
           <tr key={item.itemId}>
-            <td key={item.itemId + "_1"} className={item.selected ? "selected" : ""}>{item.itemName}</td>
+            <td key={item.itemId + "_1"} className={!item.selected ? "selected" : ""}>{item.itemName}</td>
             <td key={item.itemId + "_2"} >{item.cost}</td>
             <td key={item.itemId + "_3"} className="items-button">
               {onDelete && <button className="btn btn-sm  btn-outline-danger float-right"

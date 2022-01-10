@@ -1,6 +1,12 @@
 import React from "react";
+import { IItem } from "../../services/data-service";
 
-const GraphForm = () => (
+interface Props {
+    data: IItem[],
+    selectedItem?: IItem
+}
+
+const GraphForm = ({ data, selectedItem }: Props) => (
 
     /* <!-- Section -->   */
 
@@ -16,10 +22,14 @@ const GraphForm = () => (
                                         <div className="col">
                                             <label >Item</label>
                                             <select className="custom-select" >
-                                                <option defaultValue = "">Choose...</option>
-                                                <option value="1">United States</option>
-                                                <option value="2">Germany</option>
-                                                <option value="3">Canada</option>
+                                                {
+                                                    data.map((item) => (
+                                                        <option key={item.itemId} 
+                                                        value={item.itemId}>{item.itemName}</option>
+                                                    ))
+                                                }
+
+
                                             </select>
                                         </div>
                                     </div>
@@ -28,11 +38,13 @@ const GraphForm = () => (
                                     <div className="row form-group">
                                         <div className="col">
                                             <label >Item cost</label>
-                                            <input type="text" className="form-control" />
+                                            <input type="text" className="form-control" 
+                                            value ={selectedItem?.cost}/>
                                         </div>
                                         <div className="col">
                                             <label >Purchase price</label>
-                                            <input type="text" className="form-control" />
+                                            <input type="text" className="form-control"
+                                            value ={selectedItem?.purchasePrice} />
                                         </div>
                                     </div>
 
@@ -44,11 +56,14 @@ const GraphForm = () => (
                                     <div className="row form-group">
                                         <div className="col">
                                             <label >Begin quantity</label>
-                                            <input type="text" className="form-control" placeholder="" />
+                                            <input type="text" className="form-control"
+                                               
+                                                value={selectedItem?.beginQuantity} />
                                         </div>
                                         <div className="col">
                                             <label >Markup</label>
-                                            <input type="text" className="form-control" placeholder="" />
+                                            <input type="text" className="form-control"  
+                                            value ={selectedItem?.markup}/>
                                         </div>
 
 
@@ -57,11 +72,12 @@ const GraphForm = () => (
                                     <div className="row form-group">
                                         <div className="col">
                                             <label >Step</label>
-                                            <input type="text" className="form-control" placeholder="" />
+                                            <input type="text" className="form-control" 
+                                            value ={selectedItem?.stepQuantity} />
                                         </div>
                                         <div className="col align-self-end" >
 
-                                            <button className="btn btn-primary text-success  btn-block" type="button">    Success   </button>
+                                            <button className="btn btn-primary text-success  btn-block" type="button">    Submit   </button>
                                         </div>
                                     </div>
 

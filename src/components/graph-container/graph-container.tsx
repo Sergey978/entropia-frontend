@@ -32,7 +32,7 @@ const GraphContainer = () => (
                     left: chartParams.oxn,
                     top: chartParams.oyn + chartParams.ly
                 }}
-            />
+            ></div>
 
             <div className="vertical-axis"
                 style={{
@@ -40,13 +40,9 @@ const GraphContainer = () => (
                     left: chartParams.oxn,
                     top: chartParams.oyn
                 }}
-            />
+            ></div>
 
-            <Grid  {...chartParams}/>
-
-            
-
-
+            <Grid  {...chartParams}/>       
 
         </div>
     </div>
