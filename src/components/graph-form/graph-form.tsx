@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { IItem } from "../../services/data-service";
 
 interface Props {
@@ -8,8 +8,6 @@ interface Props {
 }
 
 const GraphForm = ({ data, selectedItem, newSelectedItemId  }: Props) => {
-
-    
 
     
     /* <!-- Section -->   */
