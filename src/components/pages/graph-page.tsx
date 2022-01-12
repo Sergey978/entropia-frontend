@@ -20,7 +20,7 @@ const GraphPage = () => {
   const [userItems, setUserItems] = useState<IItem[]>([]);
   const [selectedItem, setSelectedItem] = useState<IItem>();
 
-
+ 
   useEffect(() => {
     let cancelled = false;
     const doGetUserItems = async () => {
@@ -28,34 +28,38 @@ const GraphPage = () => {
         setUserItems([...await getUserCustomtItems(userId), ...await getUserStandartItems(userId)]
           .filter((item) => item.selected === true));
         setUserItemsLoading(false);
-        if (userItems.length > 0) { setSelectedItem(userItems[0]) }
+        console.log(" here activated 1")
+        
       }
     };
     doGetUserItems();
+    console.log(" here activated 2")
     return () => {
       cancelled = true;
     };
-  },[userItems]);
+  },[userItems, getUserCustomtItems, getUserStandartItems ]);
 
 
   //toDo Need to render item's property in form after each selected item and submit form
 
+// useEffect(() =>{
+//   let cancelled = false;
+//   setUserItemsLoading(true);
 
+//   return () => {
+//     cancelled = true;
+//   };
+// },[selectedItem])
 
-  useEffect(() => {
-    let cancelled = false;
-    setUserItemsLoading(true);
-    const doSetUserItem = async () => {
-      setSelectedItem(userItems[0])
-      if (!cancelled) {
-        setUserItemsLoading(false);
-      };
-    }
-    doSetUserItem();
-    return () => {
-      cancelled = true;
-    };
-  }, [selectedItem]);
+  const itemReselected  = (id: number)=>{
+
+   const index = userItems.map((item) => item.itemId).indexOf(id);
+    
+   //setSelectedItem(userItems[index]);
+    console.log("item selected");
+    console.log(index);
+
+  }
 
 
 
@@ -75,7 +79,7 @@ const GraphPage = () => {
       {/*<!-- End of Hero section -->*/}
       {
         userItemsLoading ? (<GraphFormLoading />) :
-          (<GraphForm data={userItems} selectedItem = {selectedItem} />)
+          (<GraphForm data={userItems} selectedItem = {selectedItem} newSelectedItemId = {itemReselected}/>)
       }
 
       {/* <!-- Section of Graph and table -->   */}

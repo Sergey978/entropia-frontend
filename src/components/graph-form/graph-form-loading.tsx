@@ -10,9 +10,11 @@ export const GraphFormLoading = () => (
         <div className="container">
             <div className="row">
                 <div className="col" >
-                    <div className="text-center">
-                        <div className="spinner-border" role="status">
-                            <span className="sr-only">Loading...</span>
+                    <div className="card bg-primary shadow-soft border-light p-4">
+                        <div className="text-center">
+                            <div className="spinner-border" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
                         </div>
                     </div>
                 </div>
