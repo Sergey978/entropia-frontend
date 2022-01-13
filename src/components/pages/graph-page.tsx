@@ -26,8 +26,9 @@ const GraphPage = () => {
     const doGetUserItems = async () => {
       if (!cancelled) {
         const items = [...await getUserCustomtItems(userId), ...await getUserStandartItems(userId)]
-        setUserItems(items.filter((item) => item.selected === true));  
-        console.log("act  1");      
+        setUserItems(items.filter((item) => item.selected === true), );  
+        console.log("act  1");   
+        if(items.length > 0) {console.log("act  4"); setSelectedItem(items[0])}   
         setUserItemsLoading(false);
       }
 
@@ -35,7 +36,7 @@ const GraphPage = () => {
     doGetUserItems();
     console.log("act  2");     
     return () => {
-      cancelled = true;
+      cancelled = true;      
     };
   }, []);
 
@@ -71,6 +72,7 @@ const GraphPage = () => {
       </div>
       {/*<!-- End of Hero section -->*/}
       { console.log("act  3")     }
+      { console.log(selectedItem)     }
       {
         userItemsLoading ? (<GraphFormLoading />) :
           (<GraphForm data={userItems} selectedItem={selectedItem} newSelectedItemId={itemReselected} />)
