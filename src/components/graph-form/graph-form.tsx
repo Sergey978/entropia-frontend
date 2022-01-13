@@ -34,7 +34,6 @@ const GraphForm = ({ data, selectedItem, newSelectedItemId }: Props) => {
     }
 
 
-
     React.useEffect(() => {
 
         setState({

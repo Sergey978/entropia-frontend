@@ -26,7 +26,7 @@ const GraphPage = () => {
     const doGetUserItems = async () => {
       if (!cancelled) {
         const items = [...await getUserCustomtItems(userId), ...await getUserStandartItems(userId)]
-        setUserItems(items.filter((item) => item.selected === true),);
+        setUserItems(items.filter((item) => item.selected === true));
         if (items.length > 0) { setSelectedItem(items[0]) }
         setUserItemsLoading(false);
       }
@@ -34,7 +34,7 @@ const GraphPage = () => {
     };
     doGetUserItems();   
     return () => {
-      cancelled = true;
+      cancelled = true;      
     };
   }, []);
 
@@ -64,7 +64,6 @@ const GraphPage = () => {
         </div>
       </div>
       {/*<!-- End of Hero section -->*/}
-
       {
         userItemsLoading ? (<GraphFormLoading />) :
           (<GraphForm data={userItems} selectedItem={selectedItem} newSelectedItemId={itemReselected} />)
