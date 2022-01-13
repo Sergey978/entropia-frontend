@@ -26,14 +26,13 @@ const GraphPage = () => {
     const doGetUserItems = async () => {
       if (!cancelled) {
         const items = [...await getUserCustomtItems(userId), ...await getUserStandartItems(userId)]
-        setUserItems(items.filter((item) => item.selected === true));  
-        console.log("act  1");      
+        setUserItems(items.filter((item) => item.selected === true),);
+        if (items.length > 0) { setSelectedItem(items[0]) }
         setUserItemsLoading(false);
       }
 
     };
-    doGetUserItems();
-    console.log("act  2");     
+    doGetUserItems();   
     return () => {
       cancelled = true;
     };
@@ -44,19 +43,14 @@ const GraphPage = () => {
 
 
   const itemReselected = (id: number) => {
-
     const index = userItems.map((item) => item.itemId).indexOf(id);
-
     setSelectedItem(userItems[index]);
-    console.log("item selected");
-    console.log(index);
-
   }
 
 
 
   return (
-    
+
     <Page>
       {/*<!-- Hero -->*/}
       <div className="section section-header pb-7">
@@ -70,7 +64,7 @@ const GraphPage = () => {
         </div>
       </div>
       {/*<!-- End of Hero section -->*/}
-      { console.log("act  3")     }
+
       {
         userItemsLoading ? (<GraphFormLoading />) :
           (<GraphForm data={userItems} selectedItem={selectedItem} newSelectedItemId={itemReselected} />)
