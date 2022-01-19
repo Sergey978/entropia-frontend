@@ -50,9 +50,7 @@ const CustomItemsPage = () => {
     }
 
     const onDeleteCustomItem = async (id: number) => {
-
         const result = await deleteCustomItem(userId, id);
-
         if (result) {
             setSuccessfullyDeleted(result ? true : false);
         }
@@ -65,8 +63,6 @@ const CustomItemsPage = () => {
             setItemsLoading(true);
 
         }
-
-
     }
 
 

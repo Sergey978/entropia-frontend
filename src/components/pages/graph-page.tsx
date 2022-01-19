@@ -81,7 +81,7 @@ const GraphPage = () => {
               </div>
 
               <div className="col-md-5">
-                < TableContainer />
+                < TableContainer  selectedItem={selectedItem} />
               </div>
             </div>
 

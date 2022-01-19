@@ -1,9 +1,58 @@
 import React from "react";
+import { IItem } from "../../services/data-service";
+import { ItemList } from "../item-list";
 import "./table-container.css";
 
-const TableContainer = () => (
-  
+interface Props {
 
+  selectedItem?: IItem,
+}
+
+interface ITableItem {
+  Quantity: number,
+  Price: number,
+  Profit: number,
+  Tax: number,
+  Markup: number
+}
+
+const TableContainer = ({ selectedItem }: Props) => {
+
+
+  const [table, setTable] = React.useState<ITableItem[]>([]);
+
+  React.useEffect(() => {
+    let tableItems: Array<ITableItem> =[];
+
+    const calcTable = () => {
+      const maxParams = { y: 0, x: 0 };
+      let j = 0;
+
+      for (let i = selectedItem!.beginQuantity; i <= selectedItem!.quantity; i += selectedItem!.stepQuantity) {
+        let sellingPrice = Math.round((i * selectedItem!.cost + selectedItem!.markup));
+        let markup = sellingPrice - (selectedItem!.cost * i);
+        let tax = 0.5 + markup * 99.5 / (1990 + markup);
+        let profit = sellingPrice - (selectedItem!.cost * selectedItem!.purchasePrice * i / 100) - tax;
+        
+        tableItems[j] = {
+          Quantity: i,
+          Price: sellingPrice,
+          Profit: profit,
+          Tax: tax,
+          Markup: (sellingPrice / (i * selectedItem!.cost) * 100)
+        };
+        j++;
+      }
+
+      setTable(tableItems);
+
+    }
+
+     if(selectedItem !== undefined) {console.log(selectedItem); calcTable()  ; } ;
+  });
+
+
+  return (
     <table className="table table-bordered table-striped table-wrapper-scroll-y my-custom-scrollbar">
       <thead>
         <tr>
@@ -14,88 +63,21 @@ const TableContainer = () => (
           <th className="col-xs-2 text-center">Markup</th>
         </tr>
       </thead>
-      <tbody id="tbody"><tr id="row-0">
-        <td className="col-xs-2 text-center">500</td>
-        <td className="col-xs-3 text-center">30</td>
-        <td className="col-xs-3 text-center">3.00</td>
-        <td className="col-xs-2 text-center">0.75</td>
-        <td className="col-xs-2 text-center">120.00</td>
-      </tr>
-        <tr id="row-1">
-          <td className="col-xs-2 text-center">505</td>
-          <td className="col-xs-3 text-center">30</td>
-          <td className="col-xs-3 text-center">2.75</td>
-          <td className="col-xs-2 text-center">0.74</td>
-          <td className="col-xs-2 text-center">118.81</td>
-        </tr>
-        <tr id="row-2">
-          <td className="col-xs-2 text-center">510</td>
-          <td className="col-xs-3 text-center">31</td>
-          <td className="col-xs-3 text-center">3.45</td>
-          <td className="col-xs-2 text-center">0.77</td>
-          <td className="col-xs-2 text-center">121.57</td>
-        </tr>
-        <tr id="row-3">
-          <td className="col-xs-2 text-center">515</td>
-          <td className="col-xs-3 text-center">31</td>
-          <td className="col-xs-3 text-center">3.20</td>
-          <td className="col-xs-2 text-center">0.76</td>
-          <td className="col-xs-2 text-center">120.39</td>
-        </tr>
-        <tr id="row-4">
-          <td className="col-xs-2 text-center">520</td>
-          <td className="col-xs-3 text-center">31</td>
-          <td className="col-xs-3 text-center">2.95</td>
-          <td className="col-xs-2 text-center">0.75</td>
-          <td className="col-xs-2 text-center">119.23</td>
-        </tr>
-        <tr id="row-5">
-          <td className="col-xs-2 text-center">525</td>
-          <td className="col-xs-3 text-center">31</td>
-          <td className="col-xs-3 text-center">2.70</td>
-          <td className="col-xs-2 text-center">0.74</td>
-          <td className="col-xs-2 text-center">118.10</td>
-        </tr>
-        <tr id="row-6">
-          <td className="col-xs-2 text-center">530</td>
-          <td className="col-xs-3 text-center">32</td>
-          <td className="col-xs-3 text-center">3.40</td>
-          <td className="col-xs-2 text-center">0.77</td>
-          <td className="col-xs-2 text-center">120.75</td>
-        </tr>
-        <tr id="row-7">
-          <td className="col-xs-2 text-center">535</td>
-          <td className="col-xs-3 text-center">32</td>
-          <td className="col-xs-3 text-center">3.15</td>
-          <td className="col-xs-2 text-center">0.76</td>
-          <td className="col-xs-2 text-center">119.63</td>
-        </tr>
-        <tr id="row-8">
-          <td className="col-xs-2 text-center">540</td>
-          <td className="col-xs-3 text-center">32</td>
-          <td className="col-xs-3 text-center">2.90</td>
-          <td className="col-xs-2 text-center">0.75</td>
-          <td className="col-xs-2 text-center">118.52</td>
-        </tr>
-        <tr id="row-9">
-          <td className="col-xs-2 text-center">545</td>
-          <td className="col-xs-3 text-center">32</td>
-          <td className="col-xs-3 text-center">2.65</td>
-          <td className="col-xs-2 text-center">0.74</td>
-          <td className="col-xs-2 text-center">117.43</td>
-        </tr>
-        <tr id="row-10">
-          <td className="col-xs-2 text-center">545</td>
-          <td className="col-xs-3 text-center">32</td>
-          <td className="col-xs-3 text-center">2.65</td>
-          <td className="col-xs-2 text-center">0.74</td>
-          <td className="col-xs-2 text-center">117.43</td>
-        </tr>
+      <tbody id="tbody">
+        {table.map((row) => (
+          <tr key={row.Quantity}>
+            <td className="col-xs-2 text-center">{row.Quantity}</td>
+            <td className="col-xs-3 text-center">{row.Price}</td>
+            <td className="col-xs-3 text-center">{row.Profit.toFixed(2)}</td>
+            <td className="col-xs-2 text-center">{row.Tax.toFixed(2)}</td>
+            <td className="col-xs-2 text-center">{row.Markup.toFixed(2)}</td>
+          </tr>
+        ))
+        }
       </tbody>
     </table>
- 
+  )
+};
 
-
-)
 
 export default TableContainer;

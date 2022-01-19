@@ -25,13 +25,8 @@ const AddItemForm = ({ _userId, _submitResult, _submited }: Props) => {
             itemName: data.itemName,
             itemCost: data.cost,
         });
-        _submitResult(Boolean(result));
-       
-
+        _submitResult(Boolean(result));    
     };
-
-
-
 
     return (
         /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
@@ -55,7 +50,7 @@ const AddItemForm = ({ _userId, _submitResult, _submited }: Props) => {
 
                     </div>
                     <div className="col-3 justify-content-end">
-                        <button className="  btn btn-primary text-secondary" type="submit" >Submit  </button>
+                        <button className="btn btn-primary text-secondary" type="submit" >Submit  </button>
                     </div>
                 </div>
             </fieldset>

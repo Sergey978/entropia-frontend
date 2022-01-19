@@ -264,7 +264,17 @@ export default class DataService {
         return newCustomItem;
     }
 
+    changeUserItem = async( changedItem: IItem) => {
+
+        console.log("changed item", changedItem);
+
+
+    }
+
+
+
 }
+
 
 
 
