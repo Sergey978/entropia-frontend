@@ -3,14 +3,12 @@ export interface IItem {
     itemId: number;
     itemName: string;
     cost: number, // price for one item PED
-    purchasePrice: number, // price in %
-    sellPrice: number, // price in PED
+    purchasePrice: number, // price in %  
     markup: number, //PED
     beginQuantity: number,
     quantity: number,
     stepQuantity: number,
-    selected: boolean;
-   
+    selected: boolean; 
 
 };
 
@@ -40,8 +38,7 @@ export default class DataService {
                     itemId: 1,
                     itemName: "Muscle Oil",
                     cost: 0.03,
-                    purchasePrice: 100.7,
-                    sellPrice: 103.2,
+                    purchasePrice: 100.7,                    
                     markup: 2,
                     beginQuantity: 200,
                     quantity: 500,
@@ -53,11 +50,10 @@ export default class DataService {
             customItems:
                 [
                     {
-                        itemId: 1,
+                        itemId: 2,
                         itemName: "Pancreas Oil",
                         cost: 0.03,
-                        purchasePrice: 100.4,
-                        sellPrice: 103.2,
+                        purchasePrice: 100.4,                        
                         markup: 2,
                         beginQuantity: 200,
                         quantity: 500,
@@ -76,11 +72,10 @@ export default class DataService {
             standartItems: [
 
                 {
-                    itemId: 1,
+                    itemId: 3,
                     itemName: "Muscle Oil",
                     cost: 0.03,
-                    purchasePrice: 100.7,
-                    sellPrice: 103.2,
+                    purchasePrice: 100.7,                  
                     markup: 2,
                     beginQuantity: 200,
                     quantity: 500,
@@ -95,11 +90,10 @@ export default class DataService {
             customItems:
                 [
                     {
-                        itemId: 2,
+                        itemId: 4,
                         itemName: "Pancreas Oil",
                         cost: 0.5,
-                        purchasePrice: 100.4,
-                        sellPrice: 103.2,
+                        purchasePrice: 100.4,                        
                         markup: 2,
                         beginQuantity: 300,
                         quantity: 500,
@@ -109,11 +103,10 @@ export default class DataService {
 
                     },
                     {
-                        itemId: 3,
+                        itemId: 5,
                         itemName: "Thyroid Oil",
                         cost: 0.3,
-                        purchasePrice: 100.4,
-                        sellPrice: 103.2,
+                        purchasePrice: 100.4,                        
                         markup: 2,
                         beginQuantity: 400,
                         quantity: 500,
@@ -130,11 +123,10 @@ export default class DataService {
             userName: "Jane",
             standartItems: [
                 {
-                    itemId: 3,
+                    itemId: 6,
                     itemName: "Adrenal Oil",
                     cost: 0.2,
-                    purchasePrice: 100.99,
-                    sellPrice: 103.2,
+                    purchasePrice: 100.99,                    
                     markup: 2,
                     beginQuantity: 200,
                     quantity: 500,
@@ -144,11 +136,10 @@ export default class DataService {
 
                 },
                 {
-                    itemId: 4,
+                    itemId: 7,
                     itemName: "Lysterium ignot",
                     cost: 0.03,
-                    purchasePrice: 104.44,
-                    sellPrice: 103.2,
+                    purchasePrice: 104.44,                    
                     markup: 2,
                     beginQuantity: 200,
                     quantity: 500,
@@ -159,15 +150,8 @@ export default class DataService {
                 },
             ],
             customItems:
-                [
-
-                ]
+                [ ]
         },
-
-
-
-
-
     ]
 
     private static instance: DataService;
@@ -247,8 +231,7 @@ export default class DataService {
             itemId: newId,
             itemName: customItem.itemName,
             cost: customItem.itemCost,
-            purchasePrice: 100,
-            sellPrice: 103.2,
+            purchasePrice: 100,           
             markup: 2,
             beginQuantity: 200,
             quantity: 500,
@@ -264,10 +247,20 @@ export default class DataService {
         return newCustomItem;
     }
 
-    changeUserItem = async( changedItem: IItem) => {
+    changeUserItem = async( userId: number, changedItem: IItem) => {
 
-        console.log("changed item", changedItem);
+        
+        const user = this.users.filter((user) => user.userId === userId)[0];
+        //find index in standart and custom items
+        const standartItemIndex = user.standartItems.findIndex(item => item.itemId === changedItem.itemId);
+        const customItemIndex = user.customItems.findIndex(item => item.itemId === changedItem.itemId);
 
+        if(standartItemIndex) {
+            user.standartItems[standartItemIndex] = changedItem;
+        }
+        else if(customItemIndex){
+            user.customItems[customItemIndex] = changedItem;
+        }
 
     }
 

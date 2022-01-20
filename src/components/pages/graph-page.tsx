@@ -46,6 +46,11 @@ const GraphPage = () => {
     const index = userItems.map((item) => item.itemId).indexOf(id);
     setSelectedItem(userItems[index]);
   }
+//method to modify selected item in form
+  const modifiedSelectedItem = (modifiedItem: IItem) =>{   
+
+    setSelectedItem(modifiedItem);
+  }
 
 
 
@@ -66,7 +71,9 @@ const GraphPage = () => {
       {/*<!-- End of Hero section -->*/}
       {
         userItemsLoading ? (<GraphFormLoading />) :
-          (<GraphForm data={userItems} selectedItem={selectedItem} newSelectedItemId={itemReselected} />)
+          (<GraphForm userId = {userId} data={userItems} selectedItem={selectedItem}
+             newSelectedItemId={itemReselected}
+             modItem = {modifiedSelectedItem} />)
       }
 
       {/* <!-- Section of Graph and table -->   */}
@@ -81,7 +88,7 @@ const GraphPage = () => {
               </div>
 
               <div className="col-md-5">
-                < TableContainer  selectedItem={selectedItem} />
+                < TableContainer  selectedItem={selectedItem}/>
               </div>
             </div>
 
