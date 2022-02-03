@@ -1,27 +1,20 @@
 import React from "react";
 import { IItem } from "../../services/data-service";
 import "./table-container.css";
+import {ITableItem} from "../pages/graph-page";
 
 interface Props {
 
-  selectedItem?: IItem
+  selectedItem?: IItem,
+  table: ITableItem[],
+  setTable: (tableItems: ITableItem[]) => void,
 }
 
-interface ITableItem {
-  Quantity: number,
-  Price: number,
-  Profit: number,
-  Tax: number,
-  Markup: number
-}
 
-const TableContainer = ({ selectedItem }: Props) => {
+const TableContainer = ({ selectedItem, table,  setTable }: Props) => {
 
 
-  const [table, setTable] = React.useState<ITableItem[]>([]);
-
-
-
+ 
   const calcTable = () => {
     const maxParams = { y: 0, x: 0 };
     let tableItems: Array<ITableItem> = [];

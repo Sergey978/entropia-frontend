@@ -6,7 +6,14 @@ import TableContainer from "../table-container";
 import DataService, { IItem } from "../../services/data-service";
 import { GraphFormLoading } from "../graph-form/graph-form-loading";
 
-
+// interface for points on graph and rows on table
+export interface ITableItem {
+  Quantity: number,
+  Price: number,
+  Profit: number,
+  Tax: number,
+  Markup: number
+}
 
 
 const GraphPage = () => {
@@ -19,6 +26,8 @@ const GraphPage = () => {
   const [userItemsLoading, setUserItemsLoading] = useState(true);
   const [userItems, setUserItems] = useState<IItem[]>([]);
   const [selectedItem, setSelectedItem] = useState<IItem>();
+  //table of points and rows
+  const [table, setTable] = React.useState<ITableItem[]>([]);
 
 
   useEffect(() => {
@@ -32,9 +41,10 @@ const GraphPage = () => {
       }
 
     };
-    doGetUserItems();   
+    doGetUserItems();
+    console.log(" activated ")
     return () => {
-      cancelled = true;      
+      cancelled = true;
     };
   }, []);
 
@@ -46,8 +56,8 @@ const GraphPage = () => {
     const index = userItems.map((item) => item.itemId).indexOf(id);
     setSelectedItem(userItems[index]);
   }
-//method to modify selected item in form
-  const modifiedSelectedItem = (modifiedItem: IItem) =>{   
+  //method to modify selected item in form
+  const modifiedSelectedItem = (modifiedItem: IItem) => {
 
     setSelectedItem(modifiedItem);
   }
@@ -71,9 +81,9 @@ const GraphPage = () => {
       {/*<!-- End of Hero section -->*/}
       {
         userItemsLoading ? (<GraphFormLoading />) :
-          (<GraphForm userId = {userId} data={userItems} selectedItem={selectedItem}
-             newSelectedItemId={itemReselected}
-             modItem = {modifiedSelectedItem} />)
+          (<GraphForm userId={userId} data={userItems} selectedItem={selectedItem}
+            newSelectedItemId={itemReselected}
+            modItem={modifiedSelectedItem} />)
       }
 
       {/* <!-- Section of Graph and table -->   */}
@@ -84,11 +94,11 @@ const GraphPage = () => {
             <div className="row">
 
               <div className="col-md-7">
-                <GraphContainer />
+                <GraphContainer table={table}/>
               </div>
 
               <div className="col-md-5">
-                < TableContainer  selectedItem={selectedItem}/>
+                < TableContainer selectedItem={selectedItem} table={table} setTable={setTable} />
               </div>
             </div>
 

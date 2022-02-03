@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./graph-container.css";
 import "./grid"
 import Grid from "./grid";
+import { ITableItem } from "../pages/graph-page";
+import { Point } from "./point";
 
 //chart drawing parameters
 const chartParams = {
@@ -19,13 +21,20 @@ const chartParams = {
 };
 
 
-const GraphContainer = () => (
+interface Props {
+
+    table: ITableItem[],
+
+}
+
+
+const GraphContainer = ({ table }: Props) => (
 
     // <!-- GraphConainer -->
     <div className="graph-container">
         <div className="graph" id="graph">
 
-    
+
             <div className="horizontal-axis"
                 style={{
                     width: chartParams.lx,
@@ -42,7 +51,14 @@ const GraphContainer = () => (
                 }}
             ></div>
 
-            <Grid  {...chartParams}/>       
+            <Grid  {...chartParams} />
+
+            {table.map((row) => (
+              
+              <Point tableRow = {row}  chartParams = {chartParams}   />
+
+            ))
+            }
 
         </div>
     </div>
