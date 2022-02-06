@@ -29,7 +29,6 @@ const GraphPage = () => {
   //table of points and rows
   const [table, setTable] = React.useState<ITableItem[]>([]);
 
-
   useEffect(() => {
     let cancelled = false;
     const doGetUserItems = async () => {
@@ -47,6 +46,7 @@ const GraphPage = () => {
       cancelled = true;
     };
   }, []);
+  
 
 
   //toDo Need to render item's property in form after each selected item and submit form
@@ -93,8 +93,8 @@ const GraphPage = () => {
           <div className="card bg-primary shadow-soft border-light p-4 ">
             <div className="row">
 
-              <div className="col-md-7">
-                <GraphContainer table={table}/>
+              <div className="col-md-7" >
+                <GraphContainer table={table}  />
               </div>
 
               <div className="col-md-5">

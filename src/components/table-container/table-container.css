@@ -18,3 +18,10 @@
     display: block;
     }
 
+    thead tr:nth-child(1) th{
+        border-top: none;
+        background: lightgray;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }

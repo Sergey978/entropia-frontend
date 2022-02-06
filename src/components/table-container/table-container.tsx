@@ -46,7 +46,7 @@ React.useEffect(() => {
 
 
 return (
-  <table className="table table-bordered table-striped table-wrapper-scroll-y my-custom-scrollbar">
+  <table className="table table-bordered table-striped table-wrapper-scroll-y my-custom-scrollbar table-fixed">
     <thead>
       <tr>
         <th className="col-xs-2 text-center">Quantity</th>
@@ -58,7 +58,7 @@ return (
     </thead>
     <tbody id="tbody">
       {table.map((row) => (
-        <tr key={row.Quantity}>
+        <tr key= {"row"+row.Quantity}>
           <td className="col-xs-2 text-center">{row.Quantity}</td>
           <td className="col-xs-3 text-center">{row.Price}</td>
           <td className="col-xs-3 text-center">{row.Profit.toFixed(2)}</td>

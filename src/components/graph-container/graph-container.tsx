@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect,useCallback, WheelEvent  } from "react";
+import ReactDOM from 'react-dom';
+
 import "./graph-container.css";
 import "./grid"
 import Grid from "./grid";
@@ -28,42 +30,60 @@ interface Props {
 }
 
 
-const GraphContainer = ({ table }: Props) => (
+const GraphContainer = ({ table }: Props) => {
 
+    const callback = useCallback((event: any) => {        
+            event.preventDefault()      
+            console.log(
+              event,
+              event.deltaY
+            )     
+       
+      },[])
+
+
+    useEffect(() => {      
+
+        document.getElementById('graph-container')!.addEventListener('wheel', callback)
+        return () =>  document.getElementById('graph-container')!.addEventListener('wheel', callback)
+        }, [callback]);
+
+      
     // <!-- GraphConainer -->
-    <div className="graph-container">
-        <div className="graph" id="graph">
+    return (
+        <div className="graph-container"  id="graph-container"  >
+            <div className="graph" id="graph">
 
 
-            <div className="horizontal-axis"
-                style={{
-                    width: chartParams.lx,
-                    left: chartParams.oxn,
-                    top: chartParams.oyn + chartParams.ly
-                }}
-            ></div>
+                <div className="horizontal-axis"
+                    style={{
+                        width: chartParams.lx,
+                        left: chartParams.oxn,
+                        top: chartParams.oyn + chartParams.ly
+                    }}
+                ></div>
 
-            <div className="vertical-axis"
-                style={{
-                    height: chartParams.ly,
-                    left: chartParams.oxn,
-                    top: chartParams.oyn
-                }}
-            ></div>
+                <div className="vertical-axis"
+                    style={{
+                        height: chartParams.ly,
+                        left: chartParams.oxn,
+                        top: chartParams.oyn
+                    }}
+                ></div>
 
-            <Grid  {...chartParams} />
+                <Grid  {...chartParams} />
 
-            {table.map((row) => (
-              
-              <Point tableRow = {row}  chartParams = {chartParams}   />
+                {table.map((row) => (
 
-            ))
-            }
+                    <Point tableRow={row} chartParams={chartParams} key={"point-" + row.Quantity} />
 
+                ))
+                }
+
+            </div>
         </div>
-    </div>
-    //  <!-- GraphConainer -->
+        //  <!-- GraphConainer -->
+    )
 
-
-);
+};
 export default GraphContainer;
