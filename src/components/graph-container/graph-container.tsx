@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect,useCallback, WheelEvent  } from "react";
+import React, { Component, useState, useEffect, useCallback, WheelEvent } from "react";
 import ReactDOM from 'react-dom';
 
 import "./graph-container.css";
@@ -32,26 +32,33 @@ interface Props {
 
 const GraphContainer = ({ table }: Props) => {
 
-    const callback = useCallback((event: any) => {        
-            event.preventDefault()      
-            console.log(
-              event,
-              event.deltaY
-            )     
-       
-      },[])
+    const [chartState, setChartState] = useState(chartParams);
+
+    const scaleCallback = useCallback((e:  WheelEvent) => {       
+        
+        
+        e.preventDefault();           
+        
+        console.log(            
+            e,
+            e.deltaY,
+            
+        );
+
+    }, [])
 
 
-    useEffect(() => {      
+    useEffect(() => {
 
-        document.getElementById('graph-container')!.addEventListener('wheel', callback)
-        return () =>  document.getElementById('graph-container')!.addEventListener('wheel', callback)
-        }, [callback]);
+        const graphArea = document.getElementById('graph-container');
+        graphArea!.addEventListener('wheel', scaleCallback);
+        return () => graphArea!.removeEventListener('wheel', scaleCallback);
+    }, [scaleCallback]);
 
-      
+
     // <!-- GraphConainer -->
     return (
-        <div className="graph-container"  id="graph-container"  >
+        <div className="graph-container" id="graph-container"  >
             <div className="graph" id="graph">
 
 
