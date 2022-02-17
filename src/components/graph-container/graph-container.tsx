@@ -35,78 +35,67 @@ const GraphContainer = ({ table }: Props) => {
     const [chartState, setChartState] = useState(chartParams);
 
     const zoomRef = useRef<HTMLDivElement>(null);
-
-    const scroll = (e: WheelEvent) => {
-        console.log(e.deltaY);
-        const scrollX = zoomRef.current?.scrollTop;
-        const scrollY = zoomRef.current?.scrollTop;
-        const kx0 = chartState.kx;
-        const ky0 = chartState.ky;
-
-        if (e.deltaY > 0) {
-
-            setChartState((chartState) => ({
-                ...chartState,
-                kx: chartState.kx + (chartState.kx / 100) * 5,
-                ky: chartState.ky + (chartState.ky / 100) * 5,
-
-            }));
-        }
-        else if (chartState.kx > 5 && chartState.ky > 5) {
-            setChartState((chartState) => ({
-                ...chartState,
-                kx: chartState.kx - (chartState.kx / 100) * 5,
-                ky: chartState.ky - (chartState.ky / 100) * 5
-
-            }));
-        }
-
-        // отмасштабируем при помощи CSS
-        //     if (delta > 0) {
-        //         kx0 = item.kx;
-        //         ky0 = item.ky;
-        //         item.kx = item.kx + (item.kx / 100) * 5;
-        //         item.ky = item.ky + (item.ky / 100) * 5;
-        //         $(graphContainer)
-        //             .scrollLeft(100 + params.oxn + (scrollX - 100 - params.oxn) * item.kx / kx0);
-
-        //         $(graphContainer)
-        //             .scrollTop(params.oyn + params.ly + (scrollY - params.oyn - params.ly) * item.ky / ky0);
-        //     }
-        //     else
-        //         if (item.kx > 5 && item.ky > 5) {
-        //             kx0 = item.kx;
-        //             ky0 = item.ky;
-        //             item.kx = item.kx - (item.kx / 100) * 5;
-        //             item.ky = item.ky - (item.ky / 100) * 5;
-
-        //             $(graphContainer)
-        //              .scrollLeft(100 + params.oxn + (scrollX - 100 - params.oxn) * item.kx / kx0);
-
-        //             $(graphContainer)
-        //                 .scrollTop(params.oyn + params.ly + (scrollY - params.oyn - params.ly) * item.ky / ky0);
-
-        //         };
-        //     redrawChart();
-        //     // отменим прокрутку 
-        //     e.preventDefault();
-        // });
+    // zoomRef.current?.scrollTo(520, zoomRef.current.offsetTop + 250);
 
 
-
-        e.preventDefault();
-    };
-
+  
 
     useEffect(() => {
-        const currentZoomRef = zoomRef?.current;
 
+        const scroll = (e: WheelEvent) => {
+       
+            const scrollX = zoomRef.current!.scrollLeft;
+            const scrollY = zoomRef.current!.scrollTop;
+    
+            if (e.deltaY > 0) {
+    
+                setChartState((chartState) => ({
+                    ...chartState,
+                    kx: chartState.kx + (chartState.kx / 100) * 5,
+                    ky: chartState.ky + (chartState.ky / 100) * 5,
+    
+                }));
+
+                  
+                if (e.clientX + scrollX! < 300) {
+    
+                    zoomRef.current?.scrollTo(scrollX, scrollY - (chartState.ky / 100) * 5);
+                }
+                else {
+                    zoomRef.current?.scrollTo(scrollX + (chartState.kx / 100) * 40, scrollY - (chartState.ky / 100) * 5);
+                }
+    
+    
+            }
+            else if (chartState.kx > 5 && chartState.ky > 5) {
+                setChartState((chartState) => ({
+                    ...chartState,
+                    kx: chartState.kx - (chartState.kx / 100) * 5,
+                    ky: chartState.ky - (chartState.ky / 100) * 5
+    
+                }));
+    
+                if (e.clientX + scrollX! < 300) {
+    
+                    zoomRef.current?.scrollTo(scrollX, scrollY + (chartState.ky / 100) * 5);
+                }
+                else {
+                    zoomRef.current?.scrollTo(scrollX - (chartState.kx / 100) * 40, scrollY + (chartState.ky / 100) * 5);
+                }
+            }
+    
+                  e.preventDefault();
+        };
+    
+
+
+        const currentZoomRef = zoomRef?.current;
         currentZoomRef?.addEventListener("wheel", scroll);
 
         return () => {
             currentZoomRef?.removeEventListener("wheel", scroll);
         };
-    }, []);
+    }, [chartState.kx, chartState.ky]);
 
 
     // <!-- GraphConainer -->

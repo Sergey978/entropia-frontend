@@ -27,6 +27,7 @@ const Grid = (chartProps: Props) => {
   let xSlug = 0;
   const lines = [];
   // vertical lines
+  
   for (var vLine = 100; vLine < chartProps.lx; vLine += lineStepX) {
     const x = chartProps.oxn + vLine;
     lines.push(<div className="vertical-line" key={"vLine" + vLine} style={{
@@ -49,7 +50,7 @@ const Grid = (chartProps: Props) => {
   let beginY = chartProps.oyn + chartProps.ly;
   let ySlug = 0;
 
-  for (var hLine = 1; (beginY - hLine * lineStepY) > chartProps.oyn; hLine++) {
+  for (let hLine = 1; (beginY - hLine * lineStepY) > chartProps.oyn; hLine++) {
     const y = beginY - hLine * lineStepY;
     lines.push(<div className="horizontal-line"  key={"hLine" + hLine} style={{
       width: chartProps.lx,
