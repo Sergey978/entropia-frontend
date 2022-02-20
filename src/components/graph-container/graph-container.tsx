@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import "./graph-container.css";
 import "./grid"
 import Grid from "./grid";
-import { ITableItem } from "../pages/graph-page";
+import { ITableItem, IPoint } from '../pages/graph-page';
 import { Point } from "./point";
 
 //chart drawing parameters
@@ -26,67 +26,77 @@ const chartParams = {
 interface Props {
 
     table: ITableItem[],
+    maxPoint: IPoint
 
 }
 
 
-const GraphContainer = ({ table }: Props) => {
+const GraphContainer = ({ table, maxPoint }: Props) => {
 
     const [chartState, setChartState] = useState(chartParams);
 
     const zoomRef = useRef<HTMLDivElement>(null);
-    // zoomRef.current?.scrollTo(520, zoomRef.current.offsetTop + 250);
 
+    useEffect(() => {
+        console.log(maxPoint)
+        setChartState((chartState) => ({
+            ...chartState,
+            kx: (chartState.lx - 100 - chartState.oxn) /(maxPoint.x - 100),
+            ky: (chartState.oyn + chartState.ly) / maxPoint.y
 
-  
+        }));
+        
+
+    },[maxPoint]);
+
+   
 
     useEffect(() => {
 
         const scroll = (e: WheelEvent) => {
-       
+
             const scrollX = zoomRef.current!.scrollLeft;
             const scrollY = zoomRef.current!.scrollTop;
-    
+
             if (e.deltaY > 0) {
-    
+
                 setChartState((chartState) => ({
                     ...chartState,
                     kx: chartState.kx + (chartState.kx / 100) * 5,
                     ky: chartState.ky + (chartState.ky / 100) * 5,
-    
-                }));
 
-                  
-                if (e.clientX + scrollX! < 300) {
-    
+                }));
+                // if cursor point is near 100%  doesnt zoom by x
+
+                if (e.clientX + scrollX! < 350) {
                     zoomRef.current?.scrollTo(scrollX, scrollY - (chartState.ky / 100) * 5);
                 }
                 else {
                     zoomRef.current?.scrollTo(scrollX + (chartState.kx / 100) * 40, scrollY - (chartState.ky / 100) * 5);
                 }
-    
-    
+
+
             }
             else if (chartState.kx > 5 && chartState.ky > 5) {
                 setChartState((chartState) => ({
                     ...chartState,
                     kx: chartState.kx - (chartState.kx / 100) * 5,
                     ky: chartState.ky - (chartState.ky / 100) * 5
-    
+
                 }));
-    
-                if (e.clientX + scrollX! < 300) {
-    
+
+                if (e.clientX + scrollX! < 350) {
+
                     zoomRef.current?.scrollTo(scrollX, scrollY + (chartState.ky / 100) * 5);
                 }
                 else {
                     zoomRef.current?.scrollTo(scrollX - (chartState.kx / 100) * 40, scrollY + (chartState.ky / 100) * 5);
                 }
             }
-    
-                  e.preventDefault();
+
+            e.preventDefault();
         };
-    
+
 
 
         const currentZoomRef = zoomRef?.current;

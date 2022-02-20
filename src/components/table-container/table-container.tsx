@@ -1,22 +1,22 @@
 import React from "react";
 import { IItem } from "../../services/data-service";
 import "./table-container.css";
-import {ITableItem} from "../pages/graph-page";
+import { IPoint, ITableItem } from '../pages/graph-page';
 
 interface Props {
 
   selectedItem?: IItem,
   table: ITableItem[],
   setTable: (tableItems: ITableItem[]) => void,
+  maxXY:IPoint,
+  setMaxXY:(maxPoint: IPoint) => void
 }
 
 
-const TableContainer = ({ selectedItem, table,  setTable }: Props) => {
-
-
+const TableContainer = ({ selectedItem, table,  setTable, maxXY, setMaxXY }: Props) => {
  
   const calcTable = () => {
-    const maxParams = { y: 0, x: 0 };
+    const tempMaxPoint = {x:0, y:0};
     let tableItems: Array<ITableItem> = [];
     let j = 0;
 
@@ -33,9 +33,13 @@ const TableContainer = ({ selectedItem, table,  setTable }: Props) => {
         Tax: tax,
         Markup: (sellingPrice / (i * selectedItem!.cost) * 100)
       };
+// find maximum x and y
+      if (maxXY.x < tableItems[j].Markup) { tempMaxPoint.x = tableItems[j].Markup}
+      if (maxXY.y < profit) tempMaxPoint.y = profit;
+      
       j++;
     }   
-
+    setMaxXY(tempMaxPoint);
     setTable(tableItems);
   }
 

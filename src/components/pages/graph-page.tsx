@@ -15,10 +15,13 @@ export interface ITableItem {
   Markup: number
 }
 
+export interface IPoint {
+  x: number,
+  y: number
+}
+
 
 const GraphPage = () => {
-
-
   //for test later change hardcoded 
   const userId = 4;
 
@@ -28,6 +31,8 @@ const GraphPage = () => {
   const [selectedItem, setSelectedItem] = useState<IItem>();
   //table of points and rows
   const [table, setTable] = React.useState<ITableItem[]>([]);
+  //max XY of graph
+  const [maxXY, setMaxXY] = React.useState<IPoint>({x:0, y:0});
 
   useEffect(() => {
     let cancelled = false;
@@ -40,16 +45,11 @@ const GraphPage = () => {
       }
 
     };
-    doGetUserItems();
-    console.log(" activated ")
+    doGetUserItems();    
     return () => {
       cancelled = true;
     };
   }, []);
-  
-
-
-  //toDo Need to render item's property in form after each selected item and submit form
 
 
   const itemReselected = (id: number) => {
@@ -58,14 +58,10 @@ const GraphPage = () => {
   }
   //method to modify selected item in form
   const modifiedSelectedItem = (modifiedItem: IItem) => {
-
     setSelectedItem(modifiedItem);
   }
 
-
-
   return (
-
     <Page>
       {/*<!-- Hero -->*/}
       <div className="section section-header pb-7">
@@ -73,7 +69,6 @@ const GraphPage = () => {
           <div className="row justify-content-center">
             <div className="col-12 col-lg-8 text-center">
               <h1 className="display-2 mb-4">Graph Page</h1>
-
             </div>
           </div>
         </div>
@@ -92,13 +87,15 @@ const GraphPage = () => {
         <div className="container">
           <div className="card bg-primary shadow-soft border-light p-4 ">
             <div className="row">
-
               <div className="col-md-7" >
-                <GraphContainer table={table}  />
+                <GraphContainer table={table} maxPoint ={maxXY}/>
               </div>
-
               <div className="col-md-5">
-                < TableContainer selectedItem={selectedItem} table={table} setTable={setTable} />
+                < TableContainer selectedItem={selectedItem} 
+                table={table} 
+                setTable={setTable} 
+                maxXY = {maxXY}
+                setMaxXY = {setMaxXY} />
               </div>
             </div>
 
