@@ -1,14 +1,14 @@
 
 export interface IItem {
-    itemId: number;
-    itemName: string;
+    itemId: number,
+    itemName: string,
     cost: number, // price for one item PED
     purchasePrice: number, // price in %  
     markup: number, //PED
     beginQuantity: number,
     quantity: number,
     stepQuantity: number,
-    selected: boolean; 
+    selected: boolean, 
 
 };
 
@@ -78,8 +78,8 @@ export default class DataService {
                     purchasePrice: 100.7,                  
                     markup: 2,
                     beginQuantity: 200,
-                    quantity: 500,
-                    stepQuantity: 5,
+                    quantity: 300,
+                    stepQuantity: 4,
                     selected: true,
                    
 
@@ -92,11 +92,11 @@ export default class DataService {
                     {
                         itemId: 4,
                         itemName: "Pancreas Oil",
-                        cost: 0.5,
-                        purchasePrice: 100.4,                        
-                        markup: 2,
+                        cost: 0.4,
+                        purchasePrice: 101.4,                        
+                        markup: 3,
                         beginQuantity: 300,
-                        quantity: 500,
+                        quantity: 400,
                         stepQuantity: 5,
                         selected: true,
                      
@@ -105,12 +105,12 @@ export default class DataService {
                     {
                         itemId: 5,
                         itemName: "Thyroid Oil",
-                        cost: 0.3,
-                        purchasePrice: 100.4,                        
-                        markup: 2,
+                        cost: 0.5,
+                        purchasePrice: 102.4,                        
+                        markup: 4,
                         beginQuantity: 400,
-                        quantity: 500,
-                        stepQuantity: 5,
+                        quantity: 600,
+                        stepQuantity: 6,
                         selected: true,
                       
                     },

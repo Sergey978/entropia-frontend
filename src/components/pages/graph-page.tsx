@@ -1,85 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Page } from "../page/page";
-import GraphContainer from "../graph-container";
-import GraphForm from "../graph-form";
-import TableContainer from "../table-container";
-import DataService, { IItem } from "../../services/data-service";
 import { GraphFormLoading } from "../graph-form/graph-form-loading";
-
-// interface for points on graph and rows on table
-export interface ITableItem {
-  Quantity: number,
-  Price: number,
-  Profit: number,
-  Tax: number,
-  Markup: number
-}
-
-export interface IPoint {
-  x: number,
-  y: number
-}
+import GraphDataProvider, { DataContext } from "../../context/graph-context"
+import GraphForm from "../../components/graph-form"
+import TableComponent from "../../components/table/"
 
 
 const GraphPage = () => {
-  //for test later change hardcoded 
-  const userId = 4;
 
-  const { getUserCustomtItems, getUserStandartItems } = DataService.getInstance();
-  const [userItemsLoading, setUserItemsLoading] = useState(true);
-  const [userItems, setUserItems] = useState<IItem[]>([]);
-  const [selectedItem, setSelectedItem] = useState<IItem>();
-  //table of points and rows
-  const [table, setTable] = React.useState<ITableItem[]>([]);
-  //max XY of graph
-  const [maxXY, setMaxXY] = React.useState<IPoint>({x:0, y:0});
-
-  useEffect(() => {
-    let cancelled = false;
-    const doGetUserItems = async () => {
-      if (!cancelled) {
-        const items = [...await getUserCustomtItems(userId), ...await getUserStandartItems(userId)]
-        setUserItems(items.filter((item) => item.selected === true));
-        if (items.length > 0) { setSelectedItem(items[0]) }
-        setUserItemsLoading(false);
-      }
-
-    };
-    doGetUserItems();    
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-
-  const itemReselected = (id: number) => {
-    const index = userItems.map((item) => item.itemId).indexOf(id);
-    setSelectedItem(userItems[index]);
-  }
-  //method to modify selected item in form
-  const modifiedSelectedItem = (modifiedItem: IItem) => {
-    setSelectedItem(modifiedItem);
-  }
+  const graphContext = React.useContext(DataContext);
 
   return (
+<GraphDataProvider>
     <Page>
       {/*<!-- Hero -->*/}
       <div className="section section-header pb-7">
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-12 col-lg-8 text-center">
+            <div className="col-md-1 col-lg-8 text-center">
               <h1 className="display-2 mb-4">Graph Page</h1>
             </div>
           </div>
         </div>
       </div>
       {/*<!-- End of Hero section -->*/}
-      {
-        userItemsLoading ? (<GraphFormLoading />) :
-          (<GraphForm userId={userId} data={userItems} selectedItem={selectedItem}
-            newSelectedItemId={itemReselected}
-            modItem={modifiedSelectedItem} />)
-      }
+
+      
+        {
+
+          graphContext?.userItemsLoading ? (<GraphFormLoading />) :
+            (<GraphForm />)
+        }
+      
 
       {/* <!-- Section of Graph and table -->   */}
 
@@ -88,14 +40,11 @@ const GraphPage = () => {
           <div className="card bg-primary shadow-soft border-light p-4 ">
             <div className="row">
               <div className="col-md-7" >
-                <GraphContainer table={table} maxPoint ={maxXY}/>
+
               </div>
               <div className="col-md-5">
-                < TableContainer selectedItem={selectedItem} 
-                table={table} 
-                setTable={setTable} 
-                maxXY = {maxXY}
-                setMaxXY = {setMaxXY} />
+                
+                 {<TableComponent />  } 
               </div>
             </div>
 
@@ -107,6 +56,7 @@ const GraphPage = () => {
 
 
     </Page>
+    </GraphDataProvider>
   );
 };
 export default GraphPage;

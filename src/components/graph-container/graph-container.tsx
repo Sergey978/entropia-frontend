@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from 'react-dom';
-
 import "./graph-container.css";
 import "./grid"
 import Grid from "./grid";
-import { ITableItem, IPoint } from '../pages/graph-page';
+import { ITableRow, IPoint } from "../../context/graph-context";
 import { Point } from "./point";
 
 //chart drawing parameters
@@ -25,7 +24,7 @@ const chartParams = {
 
 interface Props {
 
-    table: ITableItem[],
+    table: ITableRow[],
     maxPoint: IPoint
 
 }
@@ -36,20 +35,37 @@ const GraphContainer = ({ table, maxPoint }: Props) => {
     const [chartState, setChartState] = useState(chartParams);
 
     const zoomRef = useRef<HTMLDivElement>(null);
+    // console.log("maxpoint", maxPoint);
 
     useEffect(() => {
         console.log(maxPoint)
-        setChartState((chartState) => ({
-            ...chartState,
-            kx: (chartState.lx - 100 - chartState.oxn) /(maxPoint.x - 100),
-            ky: (chartState.oyn + chartState.ly) / maxPoint.y
+        if (maxPoint.x !== 0 && maxPoint.y !== 0) {
 
-        }));
-        
+            setChartState((chartState) => ({
+                ...chartState,
+                kx: (chartState.lx - 100 - chartState.oxn) / (maxPoint.x - 100),
+                ky: (chartState.oyn + chartState.ly) / maxPoint.y
 
-    },[maxPoint]);
+                
 
-   
+            }));
+
+            console.log("chartState", chartState)
+
+
+
+        }
+        //     setChartState((chartState) => ({
+        //         ...chartState,
+        //         kx: (chartState.lx - 100 - chartState.oxn) /(maxPoint.x - 100),
+        //         ky: (chartState.oyn + chartState.ly) / maxPoint.y
+
+        //     }));
+
+
+    }, [maxPoint]);
+
+
 
     useEffect(() => {
 

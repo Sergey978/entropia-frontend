@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import "./graph-container.css";
-import { ITableItem } from "../pages/graph-page";
+import { ITableRow } from "../../context/graph-context";
 
 
 
 interface Props {
-    tableRow: ITableItem,
+    tableRow: ITableRow,
     chartParams: any
 }
 
@@ -29,10 +29,6 @@ export const Point = ({ tableRow, chartParams }: Props) => {
 
 
     )
-
-
-
-
 
 
 }
