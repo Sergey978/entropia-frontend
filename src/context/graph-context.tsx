@@ -70,13 +70,13 @@ const GraphDataProvider: React.FC<ChildenProps> = ({ children }) => {
     };
   }, [getUserStandartItems, getUserCustomtItems]);
 
-
+// function for calculation and populate table
   const calcTable = () => {
 
     const tableRows: ITableRow[] = [];
 
     if (selectedItem.beginQuantity !== 0 && selectedItem.quantity !== 0 && selectedItem.stepQuantity !== 0) {
-      for (let i = selectedItem.beginQuantity; i <= selectedItem.quantity; i += selectedItem.stepQuantity) {       
+      for (let i = selectedItem.beginQuantity; i <= selectedItem.quantity; i += selectedItem.stepQuantity) {
         let sellingPrice = Math.round((i * selectedItem.cost + selectedItem.markup));
         let markup = sellingPrice - (selectedItem.cost * i);
         let tax = 0.5 + markup * 99.5 / (1990 + markup);
@@ -92,7 +92,7 @@ const GraphDataProvider: React.FC<ChildenProps> = ({ children }) => {
         });
       }
     }
-       setTable([...tableRows]);
+    setTable([...tableRows]);
   }
 
   useEffect(() => {

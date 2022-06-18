@@ -2,8 +2,9 @@ import React from "react";
 import { Page } from "../page/page";
 import { GraphFormLoading } from "../graph-form/graph-form-loading";
 import GraphDataProvider, { DataContext } from "../../context/graph-context"
-import GraphForm from "../../components/graph-form"
+import GraphForm from "../graph-form"
 import TableComponent from "../../components/table/"
+import Graph from "../graph/graph"
 
 
 const GraphPage = () => {
@@ -40,12 +41,13 @@ const GraphPage = () => {
           <div className="card bg-primary shadow-soft border-light p-4 ">
             <div className="row">
               <div className="col-md-7" >
+                {<Graph />}
 
               </div>
-              <div className="col-md-5">
-                
+              <div className="col-md-5">                
                  {<TableComponent />  } 
               </div>
+
             </div>
 
           </div>

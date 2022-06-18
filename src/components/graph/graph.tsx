@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from 'react-dom';
-import "./graph-container.css";
+import "./graph.css";
 import "./grid"
 import Grid from "./grid";
 import { ITableRow, IPoint } from "../../context/graph-context";
+import { DataContext } from "../../context/graph-context"
 import { Point } from "./point";
 
 //chart drawing parameters
@@ -22,48 +23,43 @@ const chartParams = {
 };
 
 
-interface Props {
-
-    table: ITableRow[],
-    maxPoint: IPoint
-
-}
 
 
-const GraphContainer = ({ table, maxPoint }: Props) => {
+const Graph = () => {
 
+    const graphContext = React.useContext(DataContext);
     const [chartState, setChartState] = useState(chartParams);
 
     const zoomRef = useRef<HTMLDivElement>(null);
     // console.log("maxpoint", maxPoint);
 
-    useEffect(() => {
-        console.log(maxPoint)
-        if (maxPoint.x !== 0 && maxPoint.y !== 0) {
+    // useEffect(() => {
+    //     //console.log(maxPoint)
+    //     if (maxPoint.x !== 0 && maxPoint.y !== 0) {
 
-            setChartState((chartState) => ({
-                ...chartState,
-                kx: (chartState.lx - 100 - chartState.oxn) / (maxPoint.x - 100),
-                ky: (chartState.oyn + chartState.ly) / maxPoint.y
-
-                
-
-            }));
-
-            console.log("chartState", chartState)
+    //         setChartState((chartState) => ({
+    //             ...chartState,
+    //             kx: (chartState.lx - 100 - chartState.oxn) / (maxPoint.x - 100),
+    //             ky: (chartState.oyn + chartState.ly) / maxPoint.y
 
 
 
-        }
-        //     setChartState((chartState) => ({
-        //         ...chartState,
-        //         kx: (chartState.lx - 100 - chartState.oxn) /(maxPoint.x - 100),
-        //         ky: (chartState.oyn + chartState.ly) / maxPoint.y
+    //         }));
 
-        //     }));
+    //         console.log("chartState", chartState)
 
 
-    }, [maxPoint]);
+
+    //     }
+    //     //     setChartState((chartState) => ({
+    //     //         ...chartState,
+    //     //         kx: (chartState.lx - 100 - chartState.oxn) /(maxPoint.x - 100),
+    //     //         ky: (chartState.oyn + chartState.ly) / maxPoint.y
+
+    //     //     }));
+
+
+    // }, [maxPoint]);
 
 
 
@@ -128,8 +124,6 @@ const GraphContainer = ({ table, maxPoint }: Props) => {
     return (
         <div className="graph-container" ref={zoomRef}  >
             <div className="graph" id="graph">
-
-
                 <div className="horizontal-axis"
                     style={{
                         width: chartState.lx,
@@ -147,8 +141,13 @@ const GraphContainer = ({ table, maxPoint }: Props) => {
                 ></div>
 
                 <Grid  {...chartState} />
+          
+{/* filter table points , if profit of point <0 skip */}
 
-                {table.map((row) => (
+                {graphContext!.table.filter((row: ITableRow) => {
+                    if (row.Profit < 0) return false;
+                    else return true;
+                }).map((row) => (
 
                     <Point tableRow={row} chartParams={chartState} key={"point-" + row.Quantity} />
 
@@ -161,4 +160,4 @@ const GraphContainer = ({ table, maxPoint }: Props) => {
     )
 
 };
-export default GraphContainer;
+export default Graph;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./graph-container.css";
+import "./graph.css";
 import { ITableRow } from "../../context/graph-context";
 
 

@@ -56,19 +56,30 @@ const GraphForm = () => {
     }, [graphContext!.selectedItem]);
 
 
-
+// handle react state fields
     const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
+
         const value = evt.currentTarget.value;
-        setState({
-            ...state,
-            [evt.currentTarget.id]: Number(value)
-        });
+        let convertedValue = Number(value);        
+
+        if (convertedValue) {
+            setState({
+                ...state,
+                [evt.currentTarget.id]: convertedValue
+            });
+        } else {
+            setState({
+                ...state,
+                [evt.currentTarget.id]: value
+
+            })
+        }
     }
 
 
 
 
-// submit form
+    // submit form
     const onSubmit = (data: Inputs) => {
 
         console.log(state.itemId);
@@ -114,7 +125,7 @@ const GraphForm = () => {
                                                     <div className="col">
                                                         <label className={errors.cost && "text-danger font-weight-bold"}>Item cost</label>
                                                         <input className="form-control"
-                                                            id="cost" type="number"
+                                                            id="cost" type="number" step="0.01"
                                                             {...register("cost", { required: true, min: 0.01 })}
                                                             value={state.cost}
                                                             onChange={onChange} />
@@ -123,8 +134,8 @@ const GraphForm = () => {
                                                     <div className="col">
                                                         <label className={errors.purchasePrice && "text-danger font-weight-bold"}>Purchase price</label>
                                                         <input className="form-control"
-                                                            id="purchasePrice" type="number"
-                                                            {...register("purchasePrice", { required: true, min: 10, })}
+                                                            id="purchasePrice" type="number" step="0.01"
+                                                            {...register("purchasePrice", { required: true, min: 10.0, })}
                                                             value={state.purchasePrice}
                                                             onChange={onChange} />
                                                     </div>
@@ -141,7 +152,7 @@ const GraphForm = () => {
                                                     <div className="col">
                                                         <label className={errors.beginQuantity && "text-danger font-weight-bold"}>Begin quantity</label>
                                                         <input type="number" className="form-control"
-                                                            id="beginQuantity"
+                                                            id="beginQuantity" 
                                                             {...register("beginQuantity", { required: true, min: 1, })}
                                                             onChange={onChange}
                                                             value={state.beginQuantity} />
@@ -151,7 +162,18 @@ const GraphForm = () => {
                                                         <label className={errors.quantity && "text-danger font-weight-bold"}>Quantity</label>
                                                         <input className="form-control"
                                                             id="quantity" type="number"
-                                                            {...register("quantity", { required: true, min: 1, valueAsNumber: true, })}
+                                                            {...register("quantity", { validate:{                                                                
+                                                                    required: (value) => {
+                                                                      if (value <= state.beginQuantity )
+                                                                      return "Should be more than Begin Quantity";
+                                                                        
+                                                                      return true;
+                                                                    }
+                                                                  
+
+
+
+                                                            },  required: true, min: 1, valueAsNumber: true, })}
                                                             onChange={onChange}
                                                             value={state.quantity} />
                                                     </div>
