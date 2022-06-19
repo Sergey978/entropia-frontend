@@ -22,14 +22,10 @@ const chartParams = {
     stepY: 0.1 //step of grid Y  ped
 };
 
-
-
-
 const Graph = () => {
 
     const graphContext = React.useContext(DataContext);
     const [chartState, setChartState] = useState(chartParams);
-
     const zoomRef = useRef<HTMLDivElement>(null);
     // console.log("maxpoint", maxPoint);
 
@@ -69,17 +65,16 @@ const Graph = () => {
 
             const scrollX = zoomRef.current!.scrollLeft;
             const scrollY = zoomRef.current!.scrollTop;
-
+            // zoom in
             if (e.deltaY > 0) {
-
                 setChartState((chartState) => ({
                     ...chartState,
                     kx: chartState.kx + (chartState.kx / 100) * 5,
                     ky: chartState.ky + (chartState.ky / 100) * 5,
 
                 }));
-                // if cursor point is near 100%  doesnt zoom by x
 
+                // if cursor point is near 100%  doesnt zoom by x
                 if (e.clientX + scrollX! < 350) {
                     zoomRef.current?.scrollTo(scrollX, scrollY - (chartState.ky / 100) * 5);
                 }
@@ -89,6 +84,7 @@ const Graph = () => {
 
 
             }
+            //zoom out
             else if (chartState.kx > 5 && chartState.ky > 5) {
                 setChartState((chartState) => ({
                     ...chartState,
@@ -98,18 +94,14 @@ const Graph = () => {
                 }));
 
                 if (e.clientX + scrollX! < 350) {
-
                     zoomRef.current?.scrollTo(scrollX, scrollY + (chartState.ky / 100) * 5);
                 }
                 else {
                     zoomRef.current?.scrollTo(scrollX - (chartState.kx / 100) * 40, scrollY + (chartState.ky / 100) * 5);
                 }
             }
-
             e.preventDefault();
         };
-
-
 
         const currentZoomRef = zoomRef?.current;
         currentZoomRef?.addEventListener("wheel", scroll);
@@ -141,8 +133,8 @@ const Graph = () => {
                 ></div>
 
                 <Grid  {...chartState} />
-          
-{/* filter table points , if profit of point <0 skip */}
+
+                {/* filter table points , if profit of point <0 skip */}
 
                 {graphContext!.table.filter((row: ITableRow) => {
                     if (row.Profit < 0) return false;

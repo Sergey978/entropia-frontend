@@ -8,7 +8,7 @@ export type DataContextType = {
   selectedItem: IItem,
   setSelectedItem: (newSelectedItem: IItem) => void,
   table: ITableRow[],
-  updateTable: (table: ITableRow) => void,
+  updateTable: (tableRow: number) => void,
   userItemsLoading: boolean
 }
 
@@ -109,16 +109,15 @@ const GraphDataProvider: React.FC<ChildenProps> = ({ children }) => {
 
   //change row status for selected row
   // without spread array table  doesn't work !!!!
-  const updateTable = (row: ITableRow) => {
+  const updateTable = (rowIndex: number) => {   
     table.filter((tableRow: ITableRow) => {
-      if (tableRow.Quantity === row.Quantity) {
-        console.log("tableRow.Quantity   ", tableRow.Quantity);
-        tableRow.IsSelected = !row.IsSelected;
-        setTable([...table])
+      if (tableRow.Quantity === rowIndex) {       
+        tableRow.IsSelected = true;      
       }
+      else tableRow.IsSelected = false;
     })
+     setTable([...table])    
   }
-
 
   return (
     <DataContext.Provider value={{
