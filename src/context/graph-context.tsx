@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import DataService, { IItem } from "../services/data-service";
-
 
 export type DataContextType = {
   items: IItem[],
@@ -9,7 +8,10 @@ export type DataContextType = {
   setSelectedItem: (newSelectedItem: IItem) => void,
   table: ITableRow[],
   updateTable: (tableRow: number) => void,
-  userItemsLoading: boolean
+  userItemsLoading: boolean,
+  scrollTo: string,
+  setScrollTo: (scrolling: string ) => void
+
 }
 
 
@@ -49,9 +51,13 @@ const GraphDataProvider: React.FC<ChildenProps> = ({ children }) => {
       stepQuantity: 0,
       selected: false,
     });
-  const [table, setTable] = React.useState<ITableRow[]>([])
+  const [table, setTable] = React.useState<ITableRow[]>([]);
   const [userItemsLoading, setUserItemsLoading] = useState(true);
+  const [scrollTo, setScrollTo]= useState<string>("");
   const { getUserStandartItems, getUserCustomtItems } = DataService.getInstance();
+
+  
+  
 
 
   useEffect(() => {
@@ -107,6 +113,8 @@ const GraphDataProvider: React.FC<ChildenProps> = ({ children }) => {
     setItems(items);
   }
 
+  
+
   //change row status for selected row
   // without spread array table  doesn't work !!!!
   const updateTable = (rowIndex: number) => {   
@@ -122,7 +130,9 @@ const GraphDataProvider: React.FC<ChildenProps> = ({ children }) => {
   return (
     <DataContext.Provider value={{
       items, setItems, selectedItem,
-      setSelectedItem, table, updateTable, userItemsLoading
+      setSelectedItem, table, updateTable, userItemsLoading,
+      scrollTo, setScrollTo, 
+      
     }}>
       {children}
     </DataContext.Provider>

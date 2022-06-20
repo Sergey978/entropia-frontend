@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import "./graph.css";
 import { ITableRow } from "../../context/graph-context";
 import { DataContext } from "../../context/graph-context"
@@ -18,21 +18,20 @@ export const Point = ({ tableRow, chartParams }: Props) => {
     let x = 100 + chartParams.oxn + (tableRow.Markup - 100) * chartParams.kx;
     let y = chartParams.oyn + chartParams.ly - tableRow.Profit * chartParams.ky;
 
-    const scroll = (id: number) => {
-        const section = document.querySelector( ".table-success");
-        console.log(section);
-       section?.scrollIntoView();
-      };
+    
 
     const onClickPointHandle =(evt: React.MouseEvent<HTMLTableRowElement, MouseEvent>)=>{
         evt.preventDefault();
          let rowIndex =parseInt(evt.currentTarget.id); 
+         graphContext?.setScrollTo("table");
          graphContext!.updateTable(rowIndex);
-         scroll(rowIndex);
+         
        }
 
-       
-
+    //scroll to selected point   
+  useEffect(() => {
+    
+  }, [graphContext?.table])
 
 
     return (
