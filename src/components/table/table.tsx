@@ -4,16 +4,15 @@ import "./table.css";
 import { IPoint, ITableRow } from '../../context/graph-context';
 import { DataContext } from "../../context/graph-context"
 
-
-
-const TableComponent = () => {  
+const TableComponent = () => {
   const graphContext = React.useContext(DataContext);
   const tableRef = React.useRef<HTMLTableElement | null>(null);
-  const rowRef = React.useRef<HTMLTableRowElement | null>(null);  
+  const rowRef = React.useRef<HTMLTableRowElement | null>(null);
 
   const onClickTableHandle = (evt: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {
     evt.preventDefault();
     let rowIndex = parseInt(evt.currentTarget.id);
+    graphContext?.setScrollTo("point");
     graphContext!.updateTable(rowIndex);
   }
 
@@ -21,12 +20,16 @@ const TableComponent = () => {
   //scroll to selected row   
   useEffect(() => {
     if (graphContext?.scrollTo === "table") {
-     
-      const {beginQuantity, quantity, stepQuantity} = graphContext!.selectedItem;
-      const scrollRows = ( Number(rowRef.current?.id) - beginQuantity)/stepQuantity;
+
+      const { beginQuantity, quantity, stepQuantity } = graphContext!.selectedItem;
+      const scrollRows = (Number(rowRef.current?.id) - beginQuantity) / stepQuantity;
       graphContext?.setScrollTo("");
-   // 55 is height of table row height   
-      tableRef.current!.scrollTop =  scrollRows * 55;
+
+      // 55 is height of table row height   
+      tableRef.current?.scrollTo({
+        top: scrollRows * 55,
+        behavior: "smooth"
+      })
     }
 
   }, [graphContext?.table])

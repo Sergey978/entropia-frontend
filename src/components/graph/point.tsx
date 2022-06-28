@@ -28,10 +28,7 @@ export const Point = ({ tableRow, chartParams }: Props) => {
          
        }
 
-    //scroll to selected point   
-  useEffect(() => {
-    
-  }, [graphContext?.table])
+   
 
 
     return (
@@ -39,6 +36,10 @@ export const Point = ({ tableRow, chartParams }: Props) => {
         <div            
             id = { tableRow.Quantity.toString()}
             onClick = {onClickPointHandle}
+            data-toggle="tooltip" data-placement="top" title={
+                "Markup " + tableRow.Markup.toFixed(2)+ "; " +  
+                "Quantity "+ tableRow.Quantity  + "; " +
+                "Profit " + tableRow.Profit.toFixed(2)}
 
             className={tableRow.IsSelected? "point-selected" : "point"}
             style={{

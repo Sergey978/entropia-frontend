@@ -111,6 +111,51 @@ const Graph = () => {
         };
     }, [chartState.kx, chartState.ky]);
 
+    //scroll to selected point   
+    useEffect(() => {
+        let x, y: number;
+        const selectedPoint = graphContext?.table.filter((tableRow: ITableRow) => {
+            if (tableRow.IsSelected === true)
+                return tableRow;
+        })[0];
+
+        if (graphContext?.scrollTo === "point") {
+
+            x = 100 + chartState.oxn + (selectedPoint!.Markup - 100) * chartState.kx;
+            y = chartState.oyn + chartState.ly - selectedPoint!.Profit * chartState.ky;
+
+            // if point in the visible are of chart
+
+            if (x <= chartState.oxn + chartState.lx && y >= 0) {
+
+                const centerX = zoomRef.current?.offsetWidth;
+                const centerY = zoomRef.current?.offsetHeight;
+
+                zoomRef.current?.scrollTo({
+                    left: x - centerX! / 2,
+                    top: y - centerY! / 2,
+                    behavior: "smooth"
+                })
+            }
+            else {
+
+                // todo If point in the invisible area, show inscription "Out of range"
+
+                // x = graphContainer.scrollLeft() + 100;
+                // y = graphContainer.scrollTop() + 100;
+
+                // $('#graph').append('<div class = "out-of-range"' +
+                //     'style="left:' + x + 'px; top:' + y + 'px;">' +
+                //     'Out of range </div>');
+            }
+
+
+            // zoomRef.current?.scrollTo();      
+            graphContext?.setScrollTo("");
+        }
+
+    }, [graphContext?.table])
+
 
     // <!-- GraphConainer -->
     return (
